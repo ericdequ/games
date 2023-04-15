@@ -45,9 +45,9 @@ export default function Home() {
         <meta name="description" content="A collection of games" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-       
+
       </Head>
-  
+
       <Box minHeight="100vh" pos="relative">
         <Box
           as="div"
@@ -56,7 +56,7 @@ export default function Home() {
           left={0}
           w="100%"
           h="100vh"
-          
+
           bgSize="cover"
           bgPosition="center"
           bgAttachment="fixed"
@@ -80,8 +80,13 @@ export default function Home() {
             >
               Games Showcase
             </Heading>
-            <Text color="white">Note: Snake and LL are the only games available on mobile at the moment</Text>
-            <Text color="white">LLL is still under development </Text>
+            <Text
+              color="white"
+              fontFamily="'Press Start 1P', monospace"
+              letterSpacing="0.1em"
+              size="1xl"
+            >Note: Snake and LLL are the only games available on mobile at the moment
+            </Text>
             <IconButton
               aria-label="Scroll down"
               icon={<ChevronDownIcon boxSize={8} />}
@@ -128,21 +133,21 @@ export default function Home() {
                   {game.title}
                 </Heading>
                 <Tooltip label="Show instructions" placement="top" hasArrow>
-      <IconButton
-        aria-label="Show instructions"
-        icon={<InfoOutlineIcon />}
-        colorScheme="gray"
-        variant="outline"
-        isRound
-        size="sm"
-        ml={2}
-        onClick={() => {
-          setSelectedGame(game);
-          setIsOpen(true);
-        }}
-      />
-    </Tooltip>
-    <Text
+                  <IconButton
+                    aria-label="Show instructions"
+                    icon={<InfoOutlineIcon />}
+                    colorScheme="gray"
+                    variant="outline"
+                    isRound
+                    size="sm"
+                    ml={2}
+                    onClick={() => {
+                      setSelectedGame(game);
+                      setIsOpen(true);
+                    }}
+                  />
+                </Tooltip>
+                <Text
                   mb={3}
                   fontSize="sm"
                   fontFamily="'Press Start 2P', monospace"
@@ -163,18 +168,18 @@ export default function Home() {
               </Box>
             ))}
             {/* Add the modal outside the map function */}
-{selectedGame && (
-  <Modal isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
-    <ModalContent>
-      <ModalHeader>{selectedGame.title} Instructions</ModalHeader>
-      <ModalCloseButton />
-      <ModalBody>
-        <Text whiteSpace="pre-wrap">{selectedGame.instructions}</Text>
-      </ModalBody>
-    </ModalContent>
-  </Modal>
-)}
+            {selectedGame && (
+              <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>{selectedGame.title} Instructions</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    <Text whiteSpace="pre-wrap">{selectedGame.instructions}</Text>
+                  </ModalBody>
+                </ModalContent>
+              </Modal>
+            )}
           </Grid>
         </Box>
       </Box>
