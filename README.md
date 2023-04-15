@@ -5,11 +5,13 @@ This repository contains a Next.js web application that showcases four fantastic
 1. 🏓 **Pong**
 2. 📐 **Geometry Survival**
 3. 😂 **Meme Survival**
+4. 🐈 **Meowio**
 4. 🐍 **Snake**
 
 Each game is designed to provide hours of entertainment and challenge your gaming skills. Deployed on Vercel, this web app ensures a smooth, fast, and responsive gaming experience.
 
-![Games Showcase Banner]
+
+
 
 ## 🚀 Getting Started
 
@@ -53,40 +55,49 @@ To deploy this app on Vercel, follow these steps:
    ```bash
    vercel login
    ```
-3. Deploy the app:
+3. Initialize the project:
+
+   ```bash
+   vercel init
+   ```
+
+4. Deploy the app:
 
    ```bash
     vercel
     ```
-4. Open the deployed app:
+5. Deploy the app to production:
 
    ```bash
-   vercel open
+   vercel --prod
    ```
 
 ## 🎮 Game Previews
 
-### Game 1: Pong
-
+### Game 1: Pong 🏓
 The classic arcade game that started it all. Challenge yourself or play with a friend in this timeless masterpiece.
 
-![Pong Preview]
-
-### Game 2: Geometry Survival
-
+### Game 2: Geometry Survival 🔺
 Dodge an endless onslaught of geometric shapes and obstacles in this fast-paced, addictive game.
 
-![Geometry Survival Preview]
-
-### Game 3: Meme Survival
-
+### Game 3: Meme Survival 😂
 Battle your way through the meme world, avoiding obstacles and collecting power-ups to survive.
 
-![Meme Survival Preview]
+### Game 4: Meowio 🐱
+A knockoff of Mario but with Scratch Cat. Try to get to the end of the level and beat the boss!
 
-### Game 4: Snake
-
+### Game 5: Snake 🐍
 The beloved classic Snake game, reimagined for modern browsers. Guide the snake to eat food and grow, but avoid hitting the walls or yourself!
 
-![Snake Preview]
+```mermaid
+graph LR
+A[Home Page] --> B[Game 1: Pong]
+A --> C[Game 2: Geometry Survival]
+A --> D[Game 3: Meme Survival]
+A --> E[Game 4: Meowio]
+A --> F[Game 5: Snake]
+```
 
+
+## 📝 License
+This project is licensed under the MIT License
