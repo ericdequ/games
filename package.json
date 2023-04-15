@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "npm install --legacy-peer-deps && next build && git add . && git commit -m 'deploy' && git push origin main && vercel login && vercel && vercel --prod"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.18",
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -20,5 +22,5 @@
     "react-game-snake": "^1.0.4",
     "snake-game-react": "^1.0.6",
     "tailwindcss": "^3.3.1"
-  }  
+  }
 }

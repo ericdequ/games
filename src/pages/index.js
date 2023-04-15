@@ -1,9 +1,26 @@
 import Head from 'next/head';
-import { Box, Grid, Heading, VStack, Button, Flex, Text, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Grid,
+  Heading,
+  VStack,
+  Button,
+  Flex,
+  Text,
+  useColorMode,
+  Image,
+  IconButton,
+} from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import { games } from '../data';
 
 export default function Home() {
   const { colorMode } = useColorMode();
+
+  const scrollToGames = () => {
+    const gamesSection = document.getElementById('gamesSection');
+    gamesSection.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -12,19 +29,59 @@ export default function Home() {
         <meta name="description" content="A collection of games" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
       </Head>
-      <Box>
+  
+      <Box minHeight="100vh" pos="relative">
+        <Box
+          as="div"
+          pos="absolute"
+          top={0}
+          left={0}
+          w="100%"
+          h="100vh"
+          bgImage="url('/background/background.jpg')"
+          bgSize="cover"
+          bgPosition="center"
+          bgAttachment="fixed"
+          zIndex={-1}
+        />
         <Flex
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
           minHeight="100vh"
-          bgGradient={colorMode === 'light' ? 'linear(to-r, blue.500, green.500)' : 'gray.800'}
+          textAlign="center"
+          bg="rgba(0, 0, 0, 0.5)"
         >
-          <Heading as="h1" size="2xl" color="white" mb={6}>
-            Games Showcase
-          </Heading>
-          <Grid templateColumns={['repeat(1, 1fr)', 'repeat(2, 1fr)', 'repeat(3, 1fr)']} gap={6}>
+          <VStack spacing={6} alignItems="center">
+            <Heading
+              as="h1"
+              size="2xl"
+              color="white"
+              fontFamily="'Press Start 2P', monospace"
+              letterSpacing="0.1em"
+            >
+              Games Showcase
+            </Heading>
+            <IconButton
+              aria-label="Scroll down"
+              icon={<ChevronDownIcon boxSize={8} />}
+              colorScheme="whiteAlpha"
+              onClick={scrollToGames}
+            />
+          </VStack>
+        </Flex>
+        <Box id="gamesSection" p={6}>
+          <Grid
+            templateColumns={[
+              'repeat(auto-fill, minmax(250px, 1fr))',
+              'repeat(auto-fill, minmax(300px, 1fr))',
+            ]}
+            gap={6}
+            justifyContent="center"
+            alignItems="start"
+          >
             {games.map((game) => (
               <Box
                 key={game.id}
@@ -34,12 +91,36 @@ export default function Home() {
                 boxShadow="xl"
                 _hover={{ transform: 'scale(1.05)', transition: 'all 0.3s' }}
               >
-                <Heading as="h2" size="md" mb={3}>
+                <Image
+                  src={game.thumbnail}
+                  alt={`${game.title} Thumbnail`}
+                  borderRadius="lg"
+                  mb={3}
+                  objectFit="cover"
+                  width="100%"
+                  height="200px"
+                />
+                <Heading
+                  as="h2"
+                  size="md"
+                  mb={3}
+                  fontFamily="'Press Start 2P', monospace"
+                  letterSpacing="0.1em"
+                >
                   {game.title}
                 </Heading>
-                <Text mb={3}>{game.description}</Text>
+                <Text
+                  mb={3}
+                  fontSize="sm"
+                  fontFamily="'Press Start 2P', monospace"
+                  letterSpacing="0.1em"
+                >
+                  {game.description}
+                </Text>
                 <Button
                   colorScheme="teal"
+                  fontFamily="'Press Start 2P', monospace"
+                  letterSpacing="0.1em"
                   onClick={() => {
                     window.location.href = `/game/${game.id}`;
                   }}
@@ -49,8 +130,9 @@ export default function Home() {
               </Box>
             ))}
           </Grid>
-        </Flex>
+        </Box>
       </Box>
     </>
   );
-}
+
+};
