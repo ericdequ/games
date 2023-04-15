@@ -21,18 +21,21 @@ To get started, follow these steps:
 
    ```bash
    git clone https://github.com/ericdequ/games.git
-
+   ```
+   
 2. Install the dependencies:
 
    ```bash
    cd games
    npm install --legacy-peer-deps
     ```
+
 3. Run the development server:
 
    ```bash
    npm run dev
    ```
+
 4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 5. Build the application for production:
@@ -50,11 +53,13 @@ To deploy this app on Vercel, follow these steps:
    ```bash
    npm i -g vercel
     ```
+
 2. Login to your Vercel account:
 
    ```bash
    vercel login
    ```
+
 3. Initialize the project:
 
    ```bash
@@ -66,6 +71,7 @@ To deploy this app on Vercel, follow these steps:
    ```bash
     vercel
     ```
+
 5. Deploy the app to production:
 
    ```bash
