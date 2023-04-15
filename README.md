@@ -1,4 +1,5 @@
-# Games Showcase
+# 🎉 Games Showcase [![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20here-blue?style=flat-square)](https://games-gold-nu.vercel.app/)
+
 
 This repository contains a Next.js web application that showcases four fantastic games built with cutting-edge web technologies:
 
@@ -22,7 +23,7 @@ To get started, follow these steps:
    ```bash
    git clone https://github.com/ericdequ/games.git
    ```
-   
+
 2. Install the dependencies:
 
    ```bash
