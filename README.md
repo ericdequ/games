@@ -1,17 +1,12 @@
 # 🎉 Games Showcase [![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20here-blue?style=flat-square)](https://games-gold-nu.vercel.app/)
 
-
-This repository contains a Next.js web application that showcases four fantastic games built with cutting-edge web technologies:
+This NextJs App was built to display some basic games I built in highschool using nextjs hosted on vercel I hope you Enjoy!
 
 1. 🏓 **Pong**
 2. 📐 **Geometry Survival**
 3. 😂 **Meme Survival**
 4. 🐈 **Meowio**
 5. 🐍 **Snake**
-
-Each game is designed to provide hours of entertainment and challenge your gaming skills. Deployed on Vercel, this web app ensures a smooth, fast, and responsive gaming experience.
-
-
 
 
 ## 🚀 Getting Started
