@@ -103,7 +103,6 @@ const LLL = () => {
   };
 
   const { currentCard, chances, result, cardsWon, cardsLost, showCurrentCard } = state;
-
   return (
     <Container centerContent bg={bg} minH="100vh" p={5}>
       <Button
