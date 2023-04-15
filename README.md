@@ -2,11 +2,14 @@
 
 This NextJs App was built to display some basic games I built in highschool using nextjs hosted on vercel I hope you Enjoy!
 
+Feel free to fork repo and add your own games to the showcase!
+
 1. 🏓 **Pong**
 2. 📐 **Geometry Survival**
 3. 😂 **Meme Survival**
 4. 🐈 **Meowio**
 5. 🐍 **Snake**
+6. 🃏 **LLL**
 
 
 ## 🚀 Getting Started
@@ -91,6 +94,9 @@ A knockoff of Mario but with Scratch Cat. Try to get to the end of the level and
 ### Game 5: Snake 🐍
 The beloved classic Snake game, reimagined for modern browsers. Guide the snake to eat food and grow, but avoid hitting the walls or yourself!
 
+### Game 6: LLL 🃏
+you have 3 Chances to guess the card after each guess youll be prompted for higher or lower. If you guess correctly you win!
+
 ```mermaid
 graph LR
 A[Home Page] --> B[Game 1: Pong] --> G[Scratch]
@@ -98,6 +104,7 @@ A --> C[Game 2: Geometry Survival ] --> G
 A --> D[Game 3: Meme Survival ] --> G
 A --> E[Game 4: Meowio ] --> G
 A --> F[Game 5: Snake ] --> H[React]
+A --> I[Game 6: LLL] 
 ```
 
 
