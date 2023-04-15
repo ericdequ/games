@@ -10,12 +10,28 @@ import {
   useColorMode,
   Image,
   IconButton,
+  Tooltip, // Add this import
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, InfoOutlineIcon } from '@chakra-ui/icons'; // Add InfoOutlineIcon import
 import { games } from '../data';
+import { useState } from 'react'; // Import useState for the modal
 
 export default function Home() {
   const { colorMode } = useColorMode();
+
+  // Add state variables and hooks for the modal
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState(null);
+  const onClose = () => {
+    setIsOpen(false);
+    setSelectedGame(null);
+  };
 
   const scrollToGames = () => {
     const gamesSection = document.getElementById('gamesSection');
@@ -64,6 +80,8 @@ export default function Home() {
             >
               Games Showcase
             </Heading>
+            <Text color="white">Note: Snake and LL are the only games available on mobile at the moment</Text>
+            <Text color="white">LLL is still under development </Text>
             <IconButton
               aria-label="Scroll down"
               icon={<ChevronDownIcon boxSize={8} />}
@@ -109,7 +127,22 @@ export default function Home() {
                 >
                   {game.title}
                 </Heading>
-                <Text
+                <Tooltip label="Show instructions" placement="top" hasArrow>
+      <IconButton
+        aria-label="Show instructions"
+        icon={<InfoOutlineIcon />}
+        colorScheme="gray"
+        variant="outline"
+        isRound
+        size="sm"
+        ml={2}
+        onClick={() => {
+          setSelectedGame(game);
+          setIsOpen(true);
+        }}
+      />
+    </Tooltip>
+    <Text
                   mb={3}
                   fontSize="sm"
                   fontFamily="'Press Start 2P', monospace"
@@ -129,6 +162,19 @@ export default function Home() {
                 </Button>
               </Box>
             ))}
+            {/* Add the modal outside the map function */}
+{selectedGame && (
+  <Modal isOpen={isOpen} onClose={onClose}>
+    <ModalOverlay />
+    <ModalContent>
+      <ModalHeader>{selectedGame.title} Instructions</ModalHeader>
+      <ModalCloseButton />
+      <ModalBody>
+        <Text whiteSpace="pre-wrap">{selectedGame.instructions}</Text>
+      </ModalBody>
+    </ModalContent>
+  </Modal>
+)}
           </Grid>
         </Box>
       </Box>

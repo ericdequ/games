@@ -1,7 +1,10 @@
 import Head from 'next/head';
 import SnakeGame from '../components/SnakeGame';
-import { Button, useColorMode } from '@chakra-ui/react';
+import { Button, useColorMode, Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
+
+const MotionBox = motion(Box);
 
 export default function Snake() {
   const router = useRouter();
@@ -9,10 +12,9 @@ export default function Snake() {
 
   return (
     <>
-      <Head>
-      </Head>
+      <Head></Head>
       <Button
-        colorScheme={colorMode === 'light' ? 'gray' : 'blue'}
+        colorScheme="teal"
         position="fixed"
         top={4}
         left={4}
@@ -21,7 +23,17 @@ export default function Snake() {
       >
         Back to Home
       </Button>
-      <SnakeGame />
+      <MotionBox
+        width="100%"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+        position="relative"
+        bg={colorMode === 'light' ? 'white' : 'gray.800'} // Add this line
+      >
+        <SnakeGame />
+      </MotionBox>
     </>
   );
 }
