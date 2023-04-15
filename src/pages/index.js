@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import { Box, Grid, Heading, VStack, Button, Flex, Text, useColorMode } from '@chakra-ui/react';
 import { games } from '../data';
 
@@ -33,6 +32,7 @@ export default function Home() {
                 borderRadius="lg"
                 p={4}
                 boxShadow="xl"
+                _hover={{ transform: 'scale(1.05)', transition: 'all 0.3s' }}
               >
                 <Heading as="h2" size="md" mb={3}>
                   {game.title}

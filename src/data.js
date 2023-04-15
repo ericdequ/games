@@ -22,6 +22,12 @@ export const games = [
       title: "Meowio ",
       url: "https://scratch.mit.edu/projects/222792883",
       iframe: '<iframe src="https://scratch.mit.edu/projects/222792883/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>',
-    }
-  ];
+    },
+    {
+      id: 'snake',
+      title: "Snake Game",
+      url: "/game/snake",
+  },
+];
+
   
