@@ -98,11 +98,11 @@ The beloved classic Snake game, reimagined for modern browsers. Guide the snake 
 
 ```mermaid
 graph LR
-A[Home Page] --> B[Game 1: Pong]
-A --> C[Game 2: Geometry Survival]
-A --> D[Game 3: Meme Survival]
-A --> E[Game 4: Meowio]
-A --> F[Game 5: Snake]
+A[Home Page] --> B[Game 1: Pong (Scratch)]
+A --> C[Game 2: Geometry Survival (Scratch)]
+A --> D[Game 3: Meme Survival (Scratch)]
+A --> E[Game 4: Meowio (Scratch)]
+A --> F[Game 5: Snake (React)]
 ```
 
 
