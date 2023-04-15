@@ -29,7 +29,7 @@ export default function Home() {
         <meta name="description" content="A collection of games" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+       
       </Head>
   
       <Box minHeight="100vh" pos="relative">
@@ -40,7 +40,7 @@ export default function Home() {
           left={0}
           w="100%"
           h="100vh"
-          bgImage="url('/background/background.jpg')"
+          
           bgSize="cover"
           bgPosition="center"
           bgAttachment="fixed"
