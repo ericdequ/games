@@ -21,6 +21,9 @@ const createDeck = () => {
       deck.push({ suit, rank });
     });
   });
+
+  shuffleDeck(deck);
+  
   return deck;
 };
 
