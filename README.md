@@ -7,7 +7,7 @@ This repository contains a Next.js web application that showcases four fantastic
 2. 📐 **Geometry Survival**
 3. 😂 **Meme Survival**
 4. 🐈 **Meowio**
-4. 🐍 **Snake**
+5. 🐍 **Snake**
 
 Each game is designed to provide hours of entertainment and challenge your gaming skills. Deployed on Vercel, this web app ensures a smooth, fast, and responsive gaming experience.
 
@@ -108,4 +108,3 @@ A --> F[Game 5: Snake]
 
 ## 📝 License
 This project is licensed under the MIT License
-
