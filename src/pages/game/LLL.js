@@ -2,23 +2,33 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import ReactCardFlip from 'react-card-flip';
+
 import {
-  Button,
-  Box,
-  Text,
-  Container,
-  VStack,
-  HStack,
-  Heading,
-  useColorModeValue,
-  SimpleGrid,
   Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  VStack,
+  Text,
+  HStack,
+  Box,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  useColorMode,
+  useColorModeValue,
   useDisclosure,
+  Container,
+  Button,
+  Heading,
+  SimpleGrid,
+  
+
 } from "@chakra-ui/react";
 
 const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
@@ -30,20 +40,29 @@ const createDeck = () => {
   return shuffleDeck(deck);
 };
 
-const shuffleDeck = deck => {
+const sattoloShuffle = (deck) => {
   for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * i);
     [deck[i], deck[j]] = [deck[j], deck[i]];
   }
   return deck;
 };
 
+const shuffleDeck = deck => {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
 
+  deck = sattoloShuffle(deck);
+  return deck;
+};
 
 const LLL = () => {
   const [deck, setDeck] = useState(createDeck());
   const [Useddeck, setUsedDeck] = useState([]);
   const [disabledRanks, setDisabledRanks] = useState([]);
+  const [validCards, setValidCards] = useState([]);
   const [state, setState] = useState({
     currentCard: deck[0],
     chances: 3,
@@ -63,6 +82,15 @@ const LLL = () => {
     const currentCard = state.currentCard;
     setUsedDeck([...Useddeck, currentCard]);
   };
+
+  const getvalidcards = () => {
+    const validCards = deck.filter(card => !disabledRanks.includes(card.rank));
+    setValidCards(validCards);
+  };
+
+  useEffect(() => {
+    getvalidcards();
+  }, [disabledRanks]);
 
   const restart = won => {
     addToUsedDeck();
@@ -89,6 +117,8 @@ const LLL = () => {
     const guessedIndex = ranks.indexOf(guess);
     const currentCardIndex = ranks.indexOf(currentCard.rank);
 
+    // Calculate remaining valid ranks
+    const validRanks = ranks.filter(rank => !disabledRanks.includes(rank) && rank !== currentCard.rank);
 
     setState(prevState => {
       const newResult = guessedIndex < currentCardIndex ? "Higher" : "Lower";
@@ -114,10 +144,14 @@ const LLL = () => {
           showCurrentCard: true,
         };
       } else {
+        // Calculate probability of guessing correctly
+        const validCount = validRanks.length;
+        const correctCount = validRanks.filter(rank => rank === currentCard.rank).length;
+
         return {
           ...prevState,
           chances: newChances,
-          result: newResult,
+          result: `${newResult}`
         };
       }
     });
@@ -147,38 +181,114 @@ const LLL = () => {
       >
         <HamburgerIcon />
       </Button>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Removed Ranks</DrawerHeader>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+  <DrawerOverlay>
+    <DrawerContent bg="gray.800" color="white">
+      <DrawerCloseButton />
+      <DrawerHeader borderBottomWidth="1px" fontSize="3xl">
+        Game Stats
+      </DrawerHeader>
 
-            <DrawerBody>
-              <VStack>
-                {Useddeck.map((rank, index) => (
-                  <Text key={index}>{rank}</Text>
-                ))}
-                <Divider />
-                {Object.entries(
-                  Useddeck.reduce((counts, rank) => {
-                    counts[rank] = (counts[rank] || 0) + 1;
-                    return counts;
-                  }, {})
-                ).map(([rank, count], index) => (
-                  <Text key={index}>{rank}: {count}</Text>
-                ))}
+      <DrawerBody>
+        <Tabs variant="enclosed" colorScheme="teal">
+          <TabList>
+            <Tab>Current Odds</Tab>
+            <Tab>Remaining Cards</Tab>
+            <Tab>Used Cards</Tab>
+            <Tab>Odds Before Guesses</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <VStack spacing={4}>
+                <Text fontSize="2xl" fontWeight="bold">
+                  Current Odds 🎰
+                </Text>
+                {ranks.map((rank, index) => {
+                  const rankCount = deck.filter((card) => card.rank === rank).length;
+                  let percent = 0;
+                  if (disabledRanks.includes(rank)) {
+                    percent = 0;
+                  } else {
+                    percent = ((rankCount / validCards.length) * 100).toFixed(2);
+                  }
+
+                  return (
+                    <HStack key={index} justifyContent="space-between" w="100%">
+                      <Text fontSize="xl" mr="4">
+                        {rank}:
+                      </Text>
+                      <Box bg="teal.500" borderRadius="lg" px="2">
+                        ({percent}%)
+                      </Box>
+                    </HStack>
+                  );
+                })}
               </VStack>
-            </DrawerBody>
-
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
-
+            </TabPanel>
+            <TabPanel>
+              <VStack spacing={4}>
+                <Text fontSize="2xl" fontWeight="bold">Remaining Cards 🃏</Text>
+                {ranks.map((rank, index) => {
+                  const rankCount = deck.filter((card) => card.rank === rank).length;
+                  const percent = ((rankCount / validCards.length) * 100).toFixed(2);
+                  if (rank)
+                    return (
+                      <HStack key={index} justifyContent="space-between" w="100%">
+                        <Text fontSize="xl" mr="4">
+                          {rank}:
+                        </Text>
+                        <Box bg="teal.500" borderRadius="lg" px="2">
+                          {rankCount}
+                        </Box>
+                      </HStack>
+                    );
+                })}
+              </VStack>
+            </TabPanel>
+            <TabPanel>
+              <VStack spacing={4}>
+                <Text fontSize="2xl" fontWeight="bold">
+                  Used Cards ({Useddeck.length}) 🃏
+                </Text>
+                {ranks.map((rank, index) => {
+                  const rankCount = Useddeck.filter((card) => card.rank === rank).length;
+                  return (
+                    <HStack key={index} justifyContent="space-between" w="100%">
+                      <Text fontSize="xl" mr="4">
+                        {rank}:
+                      </Text>
+                      <Box bg="teal.500" borderRadius="lg" px="2">
+                        {rankCount}
+                        </Box>
+                </HStack>
+              );
+            })}
+          </VStack>
+        </TabPanel>
+        <TabPanel>
+          <VStack spacing={4}>
+            <Text fontSize="2xl" fontWeight="bold">
+              Odds Before guesses 🎲
+            </Text>
+            {ranks.map((rank, index) => {
+              const rankCount = deck.filter((card) => card.rank === rank).length;
+              const percent = ((rankCount / validCards.length) * 100).toFixed(2);
+              if (rank)
+                return (
+                  <HStack key={index} justifyContent="space-between" w="100%">
+                    <Text fontSize="xl" mr="4">{rank}:</Text>
+                    <Box bg="teal.500" borderRadius="lg" px="2">({percent}%)</Box>
+                  </HStack>
+                );
+            })}
+          </VStack>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  </DrawerBody>
+</DrawerContent>
+</DrawerOverlay>
+</Drawer>
       <VStack spacing={6} pt={10}>
         <Heading fontSize="5xl" fontWeight="bold" color="teal.500">LLL - Guess the Card</Heading>
         <Text fontSize="xl" fontWeight="semibold">You have 3 chances to guess the rank of the card.</Text>

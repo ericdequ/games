@@ -20,6 +20,7 @@
     "next": "13.3.0",
     "prop-types": "^15.6.0",
     "react": "18.2.0",
+    "react-card-flip": "^1.2.0",
     "react-dom": "18.2.0",
     "react-game-snake": "^1.0.4",
     "snake-game-react": "^1.0.6",
