@@ -38,8 +38,11 @@ const shuffleDeck = deck => {
   return deck;
 };
 
+
+
 const LLL = () => {
   const [deck, setDeck] = useState(createDeck());
+  const [Useddeck, setUsedDeck] = useState([]);
   const [disabledRanks, setDisabledRanks] = useState([]);
   const [state, setState] = useState({
     currentCard: deck[0],
@@ -56,7 +59,14 @@ const LLL = () => {
     setDisabledRanks([]); // Reset disabled ranks when a new card is drawn
   }, [state.currentCard]);
 
+  const addToUsedDeck = () => {
+    const currentCard = state.currentCard;
+    setUsedDeck([...Useddeck, currentCard]);
+  };
+
   const restart = won => {
+    addToUsedDeck();
+    // remove from main deck
     const newDeck = deck.slice(1);
     setDeck(newDeck);
     setState({
@@ -78,6 +88,7 @@ const LLL = () => {
     const newChances = chances - 1;
     const guessedIndex = ranks.indexOf(guess);
     const currentCardIndex = ranks.indexOf(currentCard.rank);
+
 
     setState(prevState => {
       const newResult = guessedIndex < currentCardIndex ? "Higher" : "Lower";
@@ -149,11 +160,21 @@ const LLL = () => {
 
             <DrawerBody>
               <VStack>
-                {disabledRanks.map((rank, index) => (
+                {Useddeck.map((rank, index) => (
                   <Text key={index}>{rank}</Text>
+                ))}
+                <Divider />
+                {Object.entries(
+                  Useddeck.reduce((counts, rank) => {
+                    counts[rank] = (counts[rank] || 0) + 1;
+                    return counts;
+                  }, {})
+                ).map(([rank, count], index) => (
+                  <Text key={index}>{rank}: {count}</Text>
                 ))}
               </VStack>
             </DrawerBody>
+
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
