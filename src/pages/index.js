@@ -1,3 +1,4 @@
+import React, { useState, useCallback } from 'react';
 import Head from 'next/head';
 import {
   Box,
@@ -10,7 +11,7 @@ import {
   useColorMode,
   Image,
   IconButton,
-  Tooltip, // Add this import
+  Tooltip,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -18,14 +19,80 @@ import {
   ModalCloseButton,
   ModalBody,
 } from '@chakra-ui/react';
-import { ChevronDownIcon, InfoOutlineIcon } from '@chakra-ui/icons'; // Add InfoOutlineIcon import
+import { ChevronDownIcon, InfoOutlineIcon } from '@chakra-ui/icons';
 import { games } from '../data';
-import { useState } from 'react'; // Import useState for the modal
+
+const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
+  const { colorMode } = useColorMode();
+
+  const handleInstructionsClick = useCallback(() => {
+    setSelectedGame(game);
+    setIsOpen(true);
+  }, [game, setSelectedGame, setIsOpen]);
+
+  return (
+    <Box
+      key={game.id}
+      bg={colorMode === 'light' ? 'white' : 'gray.700'}
+      borderRadius="lg"
+      p={4}
+      boxShadow="xl"
+      _hover={{ transform: 'scale(1.05)', transition: 'all 0.3s' }}
+    >
+      <Image
+        src={game.thumbnail}
+        alt={`${game.title} Thumbnail`}
+        borderRadius="lg"
+        mb={3}
+        objectFit="cover"
+        width="100%"
+        height="200px"
+      />
+      <Heading
+        as="h2"
+        size="md"
+        mb={3}
+        fontFamily="'Press Start 2P', monospace"
+        letterSpacing="0.1em"
+      >
+        {game.title}
+      </Heading>
+      <Tooltip label="Show instructions" placement="top" hasArrow>
+        <IconButton
+          aria-label="Show instructions"
+          icon={<InfoOutlineIcon />}
+          colorScheme="gray"
+          variant="outline"
+          isRound
+          size="sm"
+          ml={2}
+          onClick={handleInstructionsClick}
+        />
+      </Tooltip>
+      <Text
+        mb={3}
+        fontSize="sm"
+        fontFamily="'Press Start 2P', monospace"
+        letterSpacing="0.1em"
+      >
+        {game.description}
+      </Text>
+      <Button
+        colorScheme="teal"
+        fontFamily="'Press Start 2P', monospace"
+        letterSpacing="0.1em"
+        onClick={() => {
+          window.location.href = `/game/${game.id}`;
+        }}
+      >
+        Play
+      </Button>
+    </Box>
+  );
+});
 
 export default function Home() {
   const { colorMode } = useColorMode();
-
-  // Add state variables and hooks for the modal
   const [isOpen, setIsOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState(null);
   const onClose = () => {
@@ -45,9 +112,8 @@ export default function Home() {
         <meta name="description" content="A collection of games" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-
       </Head>
-
+  
       <Box minHeight="100vh" pos="relative">
         <Box
           as="div"
@@ -56,7 +122,6 @@ export default function Home() {
           left={0}
           w="100%"
           h="100vh"
-
           bgSize="cover"
           bgPosition="center"
           bgAttachment="fixed"
@@ -85,7 +150,9 @@ export default function Home() {
               fontFamily="'Press Start 1P', monospace"
               letterSpacing="0.1em"
               size="1xl"
-            >Note: Snake and LLL are the only games available on mobile at the moment
+            >
+              Note: Snake and LLL are the only games available on mobile at the
+              moment
             </Text>
             <IconButton
               aria-label="Scroll down"
@@ -106,84 +173,33 @@ export default function Home() {
             alignItems="start"
           >
             {games.map((game) => (
-              <Box
+              <GameCard
                 key={game.id}
-                bg={colorMode === 'light' ? 'white' : 'gray.700'}
-                borderRadius="lg"
-                p={4}
-                boxShadow="xl"
-                _hover={{ transform: 'scale(1.05)', transition: 'all 0.3s' }}
-              >
-                <Image
-                  src={game.thumbnail}
-                  alt={`${game.title} Thumbnail`}
-                  borderRadius="lg"
-                  mb={3}
-                  objectFit="cover"
-                  width="100%"
-                  height="200px"
-                />
-                <Heading
-                  as="h2"
-                  size="md"
-                  mb={3}
-                  fontFamily="'Press Start 2P', monospace"
-                  letterSpacing="0.1em"
-                >
-                  {game.title}
-                </Heading>
-                <Tooltip label="Show instructions" placement="top" hasArrow>
-                  <IconButton
-                    aria-label="Show instructions"
-                    icon={<InfoOutlineIcon />}
-                    colorScheme="gray"
-                    variant="outline"
-                    isRound
-                    size="sm"
-                    ml={2}
-                    onClick={() => {
-                      setSelectedGame(game);
-                      setIsOpen(true);
-                    }}
-                  />
-                </Tooltip>
-                <Text
-                  mb={3}
-                  fontSize="sm"
-                  fontFamily="'Press Start 2P', monospace"
-                  letterSpacing="0.1em"
-                >
-                  {game.description}
-                </Text>
-                <Button
-                  colorScheme="teal"
-                  fontFamily="'Press Start 2P', monospace"
-                  letterSpacing="0.1em"
-                  onClick={() => {
-                    window.location.href = `/game/${game.id}`;
-                  }}
-                >
-                  Play
-                </Button>
-              </Box>
+                game={game}
+                setSelectedGame={setSelectedGame}
+                setIsOpen={setIsOpen}
+              />
             ))}
-            {/* Add the modal outside the map function */}
-            {selectedGame && (
-              <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>{selectedGame.title} Instructions</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                    <Text whiteSpace="pre-wrap">{selectedGame.instructions}</Text>
-                  </ModalBody>
-                </ModalContent>
-              </Modal>
-            )}
           </Grid>
         </Box>
       </Box>
+  
+      {/* Add the modal outside the map function */}
+      {selectedGame && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{selectedGame.title} Instructions</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Text whiteSpace="pre-wrap">{selectedGame.instructions}</Text>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 
 };
+
+      

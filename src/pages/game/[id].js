@@ -1,22 +1,27 @@
-import {
-  Box,
-  Button,
-  useColorMode,
-  Heading,
-  VStack,
-  HStack,
-  IconButton,
-} from "@chakra-ui/react";
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/router";
-import { games } from "../../data";
-import Head from "next/head";
-import { motion } from "framer-motion";
-import useArrowKeys from "../../hooks/useArrowKeys";
-import { ArrowUpIcon, ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { useEffect, useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
+import { Box, VStack, Heading, Button, IconButton, HStack, useColorMode } from '@chakra-ui/react';
+import { ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon, ArrowDownIcon } from '@chakra-ui/icons';
+import Head from 'next/head';
+import { games } from '../../data';
 
-const MotionHeading = motion(Heading);
-const MotionBox = motion(Box);
+const useArrowKeys = (callback) => {
+  useEffect(() => {
+    const arrowKeys = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]);
+
+    const handleKeyPress = (event) => {
+      if (arrowKeys.has(event.key)) {
+        callback(event.key);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [callback]);
+};
 
 export default function Game() {
   const router = useRouter();
@@ -27,6 +32,12 @@ export default function Game() {
   const [showInstructions, setShowInstructions] = useState(true);
   const [iframeElement, setIframeElement] = useState(null);
 
+  const handleButtonTouchStart = (key, event) => {
+    console.log("touched", key)
+    event.preventDefault();
+    handleArrowKeyPress(key);
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowInstructions(false);
@@ -35,7 +46,7 @@ export default function Game() {
   }, []);
 
   const handleArrowKeyPress = useCallback((key) => {
-    if (iframeElement) {
+    if (iframeElement && iframeElement.contentWindow) {
       iframeElement.contentWindow.postMessage({ key }, "*");
     }
   }, [iframeElement]);
@@ -52,16 +63,11 @@ export default function Game() {
     }
   };
 
-
-  
-
-return (
+  return (
     <>
       <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <title>{game.title}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" /> {/* Add mobile responsiveness */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Button
@@ -83,96 +89,67 @@ return (
         position="relative"
       >
         <VStack spacing={4} alignItems="center">
-          <MotionHeading
-            as="h2"
-            size="xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.5 }}
->
-{game.title}
-</MotionHeading>
-<MotionBox
-initial={{ opacity: 1 }}
-animate={{ opacity: showInstructions ? 1 : 0 }}
-transition={{ duration: 1 }}
-position="absolute"
-zIndex={showInstructions ? 1 : -1}
-backgroundColor="rgba(255, 255, 255, 0.8)"
-borderRadius="md"
-padding="1rem"
->
-<Heading as="h3" size="xl" mb={4} color="black">
-Instructions
-</Heading>
-<pre
-style={{
-fontSize: "1.25rem",
-lineHeight: "1.5",
-whiteSpace: "pre-wrap",
-textAlign: "center",
-color: "black",
-}}
->
-{game.instructions}
-</pre>
-</MotionBox>
-<MotionBox
-initial={{ opacity: 0 }}
-animate={{ opacity: showInstructions ? 0 : 1 }}
-transition={{ duration: 1 }}
-zIndex={showInstructions ? -1 : 1}
->
-<Box>
-<div dangerouslySetInnerHTML={{ __html: game.iframe }} />
-</Box>
-</MotionBox>
-<HStack mt={4} spacing={4}> {/* Add arrow key inputs */}
-<IconButton
-aria-label="Move Up"
-icon={<ArrowUpIcon />}
-onClick={() => handleArrowKeyPress("ArrowUp")}
-/>
-<IconButton
-aria-label="Move Left"
-icon={<ArrowLeftIcon />}
-onClick={() => handleArrowKeyPress("ArrowLeft")}
-/>
-<IconButton
-aria-label="Move Right"
-icon={<ArrowRightIcon />}
-onClick={() => handleArrowKeyPress("ArrowRight")}
-/>
-<IconButton
-aria-label="Move Down"
-icon={<ArrowDownIcon />}
-onClick={() => handleArrowKeyPress("ArrowDown")}
-/>
-</HStack>
-<HStack mt={4} spacing={4}>
-<IconButton
-  aria-label="Move Up"
-  icon={<ArrowUpIcon />}
-  onClick={() => handleArrowKeyPress("ArrowUp")}
-/>
-<IconButton
-  aria-label="Move Left"
-  icon={<ArrowLeftIcon />}
-  onClick={() => handleArrowKeyPress("ArrowLeft")}
-/>
-<IconButton
-  aria-label="Move Right"
-  icon={<ArrowRightIcon />}
-  onClick={() => handleArrowKeyPress("ArrowRight")}
-/>
-<IconButton
-  aria-label="Move Down"
-  icon={<ArrowDownIcon />}
-  onClick={() => handleArrowKeyPress("ArrowDown")}
-/>
-</HStack>
-</VStack>
-</Box>
-</>
-);
-};
+          <Heading as="h2" size="xl">
+            {game.title}
+          </Heading>
+          <Box
+            display={showInstructions ? "block" : "none"}
+            position="absolute"
+            zIndex={showInstructions ? 1 : -1}
+            backgroundColor="rgba(255, 255, 255, 0.8)"
+            borderRadius="md"
+            padding="1rem"
+          >
+            <Heading as="h3" size="xl" mb={4} color="black">
+              Instructions
+            </Heading>
+            <pre
+              style={{
+                fontSize: "1.25rem",
+                lineHeight: "1.5",
+                whiteSpace: "pre-wrap",
+                textAlign: "center",
+                color: "black",
+              }}
+            >
+              {game.instructions}
+            </pre>
+          </Box>
+          <Box
+            display={showInstructions ? "none" : "block"}
+            zIndex={showInstructions ? -1 : 1}
+          >
+            <div ref={iframeRef} dangerouslySetInnerHTML={{ __html: game.iframe }} />
+          </Box>
+          <HStack mt={4} spacing={4}>
+            <IconButton
+              aria-label="Move Up"
+              icon={<ArrowUpIcon />}
+              onTouchStart={(event) => handleButtonTouchStart("ArrowUp", event)}
+              style={{ touchAction: 'none' }}
+            />
+            <IconButton
+              aria-label="Move Left"
+              icon={<ArrowLeftIcon />}
+              onTouchStart={(event) => handleButtonTouchStart("ArrowLeft", event)}
+              style={{ touchAction: 'none' }}
+            />
+            <IconButton
+              aria-label="Move Right"
+              icon={<ArrowRightIcon />}
+              onTouchStart={(event) => handleButtonTouchStart("ArrowRight", event)}
+              style={{ touchAction: 'none' }}
+            />
+            <IconButton
+              aria-label="Move Down"
+              icon={<ArrowDownIcon />}
+              onTouchStart={(event) => handleButtonTouchStart("ArrowDown", event)}
+              style={{ touchAction: 'none' }}
+            />
+
+          </HStack>
+        </VStack>
+      </Box>
+    </>
+  );
+};  

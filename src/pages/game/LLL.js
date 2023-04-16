@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Button,
   Box,
@@ -11,11 +12,19 @@ import {
   Heading,
   useColorModeValue,
   SimpleGrid,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
 const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
 const MotionBox = motion(Box);
+
 const createDeck = () => {
   const deck = suits.flatMap(suit => ranks.map(rank => ({ suit, rank })));
   return shuffleDeck(deck);
@@ -61,6 +70,9 @@ const LLL = () => {
     });
   };
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.createRef();
+
   const guess = (guess) => {
     const { currentCard, chances } = state;
     const newChances = chances - 1;
@@ -77,12 +89,10 @@ const LLL = () => {
       const newDisabledRanks = [...disabledRanks, ...disabledRange].filter((value, index, self) => self.indexOf(value) === index);
 
       setDisabledRanks(newDisabledRanks);
-
       if (guess === currentCard.rank && newChances >= 0) {
         setTimeout(() => restart(true), 2000);
         return {
-          ...prevState,
-          result: `Correct! ${currentCard.rank} of ${currentCard.suit}.`,
+          ...prevState,          result: `Correct! ${currentCard.rank} of ${currentCard.suit}.`,
           showCurrentCard: true,
         };
       } else if (newChances === 0) {
@@ -115,6 +125,39 @@ const LLL = () => {
       >
         Back to Home
       </Button>
+      <Button
+        ref={btnRef}
+        colorScheme="teal"
+        position="fixed"
+        top={4}
+        right={4}
+        zIndex={10}
+        onClick={onOpen}
+      >
+        <HamburgerIcon />
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Removed Ranks</DrawerHeader>
+
+            <DrawerBody>
+              <VStack>
+                {disabledRanks.map((rank, index) => (
+                  <Text key={index}>{rank}</Text>
+                ))}
+              </VStack>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+
       <VStack spacing={6} pt={10}>
         <Heading fontSize="5xl" fontWeight="bold" color="teal.500">LLL - Guess the Card</Heading>
         <Text fontSize="xl" fontWeight="semibold">You have 3 chances to guess the rank of the card.</Text>
@@ -136,44 +179,38 @@ const LLL = () => {
           </MotionBox>
         )}
         <Text fontSize="2xl" fontWeight="semibold">Chances remaining: {chances}</Text>
-        <Text fontSize="2xl" fontWeight="bold" color={chances === 0 ? "red.500" : "blue.500"}>{result}</Text>
+        <Text fontSize="2xl" fontWeight="bold" color={chances === 0 ? "red.500" : (result.includes("Correct") ? "green.500" : "blue.500")}>{result}</Text>
         <HStack>
           <Text fontSize="2xl" fontWeight="semibold">Cards Won:</Text>
           <Text fontSize="2xl" fontWeight="bold" color="green.500">{cardsWon}</Text>
           <Text fontSize="2xl" fontWeight="semibold">Cards Lost:</Text>
           <Text fontSize="2xl" fontWeight="bold" color="red.500">{cardsLost}</Text>
-        </HStack>
-        {deck.length === 1 ? (
-          <Text fontSize="2xl" fontWeight="bold" color="purple.500">You've reached the last card!</Text>
-        ) : (
-          <>
-            {(chances === 0 || result.includes("Correct")) ? (
-              <Button colorScheme="teal" onClick={() => restart(false)} fontSize="2xl" fontWeight="bold" boxShadow="md" _hover={{ boxShadow: "lg" }} _active={{ boxShadow: "xl" }}>Next Card</Button>
-            ) : (
-              <SimpleGrid columns={4} spacing={4}>
-                {ranks.map((rank) => (
-                  <Button
-                    key={rank}
-                    colorScheme="teal"
-                    onClick={() => guess(rank)}
-                    fontSize="xl"
-                    fontWeight="bold"
-                    boxShadow="md"
-                    _hover={{ boxShadow: "lg" }}
-                    _active={{ boxShadow: "xl" }}
-                    isDisabled={disabledRanks.includes(rank)}
-                    opacity={disabledRanks.includes(rank) ? 0.5 : 1}
-                  >
-                    {rank}
-                  </Button>
-                ))}
-              </SimpleGrid>
-            )}
-          </>
-        )}
-      </VStack>
-    </Container>
-  );
+</HStack>
+<SimpleGrid columns={4} spacing={4}>
+{ranks.map((rank, index) => (
+<MotionBox
+key={index}
+whileHover={{ scale: 1.1 }}
+whileTap={{ scale: 0.9 }}
+bg={disabledRanks.includes(rank) ? "gray.400" : "teal.500"}
+borderRadius="lg"
+p={6}
+boxShadow="2xl"
+onClick={() => guess(rank)}
+cursor={disabledRanks.includes(rank) ? "not-allowed" : "pointer"}
+opacity={disabledRanks.includes(rank) ? 0.5 : 1}
+>
+<Text fontSize="2xl" fontWeight="bold" color="white">
+{rank}
+</Text>
+</MotionBox>
+))}
+</SimpleGrid>
+</VStack>
+</Container>
+);
 };
 
 export default LLL;
+
+         
