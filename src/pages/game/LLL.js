@@ -92,7 +92,7 @@ const LLL = () => {
       if (guess === currentCard.rank && newChances >= 0) {
         setTimeout(() => restart(true), 2000);
         return {
-          ...prevState,          result: `Correct! ${currentCard.rank} of ${currentCard.suit}.`,
+          ...prevState, result: `Correct! ${currentCard.rank} of ${currentCard.suit}.`,
           showCurrentCard: true,
         };
       } else if (newChances === 0) {
@@ -185,32 +185,32 @@ const LLL = () => {
           <Text fontSize="2xl" fontWeight="bold" color="green.500">{cardsWon}</Text>
           <Text fontSize="2xl" fontWeight="semibold">Cards Lost:</Text>
           <Text fontSize="2xl" fontWeight="bold" color="red.500">{cardsLost}</Text>
-</HStack>
-<SimpleGrid columns={4} spacing={4}>
-{ranks.map((rank, index) => (
-<MotionBox
-key={index}
-whileHover={{ scale: 1.1 }}
-whileTap={{ scale: 0.9 }}
-bg={disabledRanks.includes(rank) ? "gray.400" : "teal.500"}
-borderRadius="lg"
-p={6}
-boxShadow="2xl"
-onClick={() => guess(rank)}
-cursor={disabledRanks.includes(rank) ? "not-allowed" : "pointer"}
-opacity={disabledRanks.includes(rank) ? 0.5 : 1}
->
-<Text fontSize="2xl" fontWeight="bold" color="white">
-{rank}
-</Text>
-</MotionBox>
-))}
-</SimpleGrid>
-</VStack>
-</Container>
-);
+        </HStack>
+        <SimpleGrid columns={4} spacing={4}>
+          {ranks.map((rank, index) => (
+            <MotionBox
+              key={index}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              bg={disabledRanks.includes(rank) ? "gray.400" : "teal.500"}
+              borderRadius="lg"
+              p={6}
+              boxShadow="2xl"
+              onClick={() => guess(rank)}
+              cursor={disabledRanks.includes(rank) ? "not-allowed" : "pointer"}
+              opacity={disabledRanks.includes(rank) ? 0.5 : 1}
+            >
+              <Text fontSize="2xl" fontWeight="bold" color="white">
+                {rank}
+              </Text>
+            </MotionBox>
+          ))}
+        </SimpleGrid>
+      </VStack>
+    </Container>
+  );
 };
 
 export default LLL;
 
-         
+
