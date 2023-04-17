@@ -19,6 +19,6 @@ def list_files(start_path, ignore_folders=None):
 
 if __name__ == '__main__':
     print("Starting to list files")
-    start_path = 'C:/dev/Emerging Tech/Reports-Firebase/src/js/containers'
+    start_path = 'C:/dev/personal/Games/games/src'
     ignore_folders = []
     list_files(start_path, ignore_folders)

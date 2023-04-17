@@ -151,8 +151,8 @@ export default function Home() {
               letterSpacing="0.1em"
               size="1xl"
             >
-              Note: Snake and LLL are the only games available on mobile at the
-              moment
+              Note: Snake and LLL are the only games available on mobile at the moment
+              (Black Jack in development )
             </Text>
             <IconButton
               aria-label="Scroll down"

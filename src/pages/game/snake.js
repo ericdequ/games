@@ -3,6 +3,8 @@ import SnakeGame from '../components/SnakeGame';
 import { Button, useColorMode, Box } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
+import styles from '../../styles/snake.module.css';
+import { isMobile } from 'react-device-detect';
 
 const MotionBox = motion(Box);
 
@@ -10,9 +12,16 @@ export default function Snake() {
   const router = useRouter();
   const { colorMode } = useColorMode();
 
+  const snakeBackgroundStyle = {
+    backgroundImage: `url(${'../../public/snake/Snake/2/2.jpg'})`,
+  };
+
   return (
     <>
-      <Head></Head>
+      <Head>
+        <title>Snake Game</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" />
+      </Head>
       <Button
         colorScheme="teal"
         position="fixed"
@@ -30,9 +39,12 @@ export default function Snake() {
         alignItems="center"
         minHeight="100vh"
         position="relative"
-        bg={colorMode === 'light' ? 'white' : 'gray.800'} // Add this line
+        bg={colorMode === 'light' ? 'white' : 'gray.800'}
+        style={isMobile ? snakeBackgroundStyle : null}
       >
-        <SnakeGame />
+        <Box>
+          <SnakeGame />
+        </Box>
       </MotionBox>
     </>
   );

@@ -1,4 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
+import { isMobile } from 'react-device-detect';
+import styles from '../../styles/Game.module.css';
 import { useRouter } from 'next/router';
 import { Box, VStack, Heading, Button, IconButton, HStack, useColorMode } from '@chakra-ui/react';
 import { ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon, ArrowDownIcon } from '@chakra-ui/icons';
@@ -33,7 +35,7 @@ export default function Game() {
   const [iframeElement, setIframeElement] = useState(null);
 
   const handleButtonTouchStart = (key, event) => {
-    console.log("touched", key)
+    console.log("touched", key);
     event.preventDefault();
     handleArrowKeyPress(key);
   };
@@ -45,11 +47,45 @@ export default function Game() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleArrowKeyPress = useCallback((key) => {
-    if (iframeElement && iframeElement.contentWindow) {
-      iframeElement.contentWindow.postMessage({ key }, "*");
-    }
-  }, [iframeElement]);
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data.type === "keydown") {
+        const arrowKeys = new Set([
+          "ArrowUp",
+          "ArrowDown",
+          "ArrowLeft",
+          "ArrowRight",
+        ]);
+
+        if (arrowKeys.has(event.data.key)) {
+          handleArrowKeyPress(event.data.key);
+        }
+      }
+    };
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, []);
+
+  const handleArrowKeyPress = useCallback(
+    (key) => {
+      if (iframeElement && iframeElement.contentWindow) {
+        const eventObj = {
+          type: "keydown",
+          bubbles: true,
+          cancelable: true,
+          view: iframeElement.contentWindow,
+          key: key,
+          code: key,
+        };
+
+        iframeElement.contentWindow.postMessage(eventObj, "*");
+      }
+    },
+    [iframeElement]
+  );
 
   useArrowKeys(handleArrowKeyPress);
 
@@ -67,7 +103,7 @@ export default function Game() {
     <>
       <Head>
         <title>{game.title}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Button
@@ -88,7 +124,7 @@ export default function Game() {
         minHeight="100vh"
         position="relative"
       >
-        <VStack spacing={4} alignItems="center">
+        <VStack spacing={4} alignItems="center" className={styles.gameContainer}>
           <Heading as="h2" size="xl">
             {game.title}
           </Heading>
@@ -121,35 +157,51 @@ export default function Game() {
           >
             <div ref={iframeRef} dangerouslySetInnerHTML={{ __html: game.iframe }} />
           </Box>
-          <HStack mt={4} spacing={4}>
+          <HStack
+            mt={4}
+            spacing={4}
+            className={isMobile ? styles.controlsContainer : ''}
+          >
             <IconButton
               aria-label="Move Up"
               icon={<ArrowUpIcon />}
-              onTouchStart={(event) => handleButtonTouchStart("ArrowUp", event)}
-              style={{ touchAction: 'none' }}
+              onTouchStart={(event) =>
+                handleButtonTouchStart("ArrowUp", event)
+              }
+              className={isMobile ? styles.controlButton : ''}
+              style={{ touchAction: "none" }}
             />
             <IconButton
               aria-label="Move Left"
               icon={<ArrowLeftIcon />}
-              onTouchStart={(event) => handleButtonTouchStart("ArrowLeft", event)}
-              style={{ touchAction: 'none' }}
+              onTouchStart={(event) =>
+                handleButtonTouchStart("ArrowLeft", event)
+              }
+              className={isMobile ? styles.controlButton : ''}
+              style={{ touchAction: "none" }}
             />
             <IconButton
               aria-label="Move Right"
               icon={<ArrowRightIcon />}
-              onTouchStart={(event) => handleButtonTouchStart("ArrowRight", event)}
-              style={{ touchAction: 'none' }}
+              onTouchStart={(event) =>
+                handleButtonTouchStart("ArrowRight", event)
+              }
+              className={isMobile ? styles.controlButton : ''}
+              style={{ touchAction: "none" }}
             />
             <IconButton
               aria-label="Move Down"
               icon={<ArrowDownIcon />}
-              onTouchStart={(event) => handleButtonTouchStart("ArrowDown", event)}
-              style={{ touchAction: 'none' }}
+              onTouchStart={(event) =>
+                handleButtonTouchStart("ArrowDown", event)
+              }
+              className={isMobile ? styles.controlButton : ''}
+              style={{ touchAction: "none" }}
             />
-
           </HStack>
+
         </VStack>
       </Box>
     </>
   );
-};  
+};
