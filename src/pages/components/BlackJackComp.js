@@ -230,7 +230,6 @@ const BlackJackComp = () => {
         dealCards();
     };
 
-
     useEffect(() => {
         if (playerHand.length > 0 && dealerHand.length > 0 && !gameOver) {
           const playerScore = handValue(playerHand);
