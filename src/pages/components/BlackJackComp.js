@@ -63,15 +63,16 @@ const BlackJackComp = () => {
     const [deck, setDeck] = useState(createDeck());
     const [playerHand, setPlayerHand] = useState([]);
     const [dealerHand, setDealerHand] = useState([]);
+    const [dealerUpCard, setDealerUpCard] = useState({});
     const [gameOver, setGameOver] = useState(false);
     const [gameMessage, setGameMessage] = useState("");
     const [balance, setBalance] = useState(1000);
     const [betAmount, setBetAmount] = useState(10);
     const [runningCount, setRunningCount] = useState(0);
-    const [optimalMove, setOptimalMove] = useState('');
     const [splitHands, setSplitHands] = useState([[], []]);
     const [activeHandIndex, setActiveHandIndex] = useState(0);
     const [betPlaced, setBetPlaced] = useState(false);
+    const [OptimalMove , setOptimalMove] = useState("");
 
     const updateRunningCount = (cards) => {
         const newRunningCount = cards.reduce((count, card) => {
@@ -160,7 +161,6 @@ const BlackJackComp = () => {
         setSplitHands([[], []]);
         setActiveHandIndex(0);
         updateRunningCount(deck.slice(0, 2));
-
     };
 
     useEffect(() => {
@@ -225,33 +225,132 @@ const BlackJackComp = () => {
         setGameMessage("");
         setSplitHands([[], []]);
         setActiveHandIndex(0);
-        setBetAmount(10); // Reset bet amount
-        setBetPlaced(false); // Add this line
+        setBetAmount(10);
+        setBetPlaced(false);
         dealCards();
     };
 
 
-
     useEffect(() => {
         if (playerHand.length > 0 && dealerHand.length > 0 && !gameOver) {
-            const playerScore = handValue(playerHand);
-            const dealerUpCard = cardValue(dealerHand[0]);
-
-            if (playerScore === 21) {
-                setOptimalMove("Blackjack! Stand.");
-            } else if (playerScore >= 17) {
-                setOptimalMove("Stand.");
-            } else if (playerScore <= 11) {
-                setOptimalMove("Hit.");
-            } else if (playerScore === 12) {
-                setOptimalMove(dealerUpCard >= 4 && dealerUpCard <= 6 ? "Stand." : "Hit.");
+          const playerScore = handValue(playerHand);
+          const dealerUpCard = cardValue(dealerHand[0]);
+          const isSoftHand = isSoft(playerHand);
+          let optimalMove = "";
+      
+          // Always split pairs of Aces and 8s, and never split pairs of 5s or 10s.
+          if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
+            const pairValue = cardValue(playerHand[0]);
+            if (pairValue === 5 || pairValue === 10) {
+              optimalMove = "Never split.";
+            } else if (pairValue === 8) {
+              optimalMove = "Always split.";
+            } else if (dealerUpCard >= 2 && dealerUpCard <= 7) {
+              optimalMove = "Split.";
             } else {
-                setOptimalMove(dealerUpCard <= 6 ? "Stand." : "Hit.");
+              optimalMove = "Hit.";
             }
+          } else if (playerScore === 21) {
+            // If the player has 21, always stand.
+            optimalMove = "Blackjack! Stand.";
+          } else if (playerScore >= 17) {
+            // If the player has 17 or more, always stand.
+            optimalMove = "Stand.";
+          } else if (playerScore <= 11) {
+            // If the player has 11 or less, always hit.
+            optimalMove = "Hit.";
+          } else if (playerScore === 12) {
+            // If the player has 12, stand if the dealer's up card is 4-6, otherwise hit.
+            if (dealerUpCard >= 4 && dealerUpCard <= 6) {
+              optimalMove = "Stand.";
+            } else {
+              optimalMove = "Hit.";
+            }
+          } else if (playerScore >= 13 && playerScore <= 16) {
+            // If the player has a hard hand of 13-16, stand if the dealer's up card is 2-6, otherwise hit.
+            if (dealerUpCard >= 2 && dealerUpCard <= 6) {
+              optimalMove = "Stand.";
+            } else {
+              optimalMove = "Hit.";
+            }
+          } else if (isSoftHand) {
+            // If the player has a soft hand, always stand on 19 or more, and hit on 18 or less.
+            if (playerScore >= 19) {
+              optimalMove = "Stand.";
+            } else {
+              optimalMove = "Hit.";
+            }
+          } else {
+            // If the player has a hard hand of 17-20, always stand.
+            optimalMove = "Stand.";
+          }
+          
+          // Add options for splitting, doubling down, hitting, standing, or surrendering
+          if (optimalMove === "Always split.") {
+            optimalMove += " You can also choose to double down or surrender in some situations.";
+          } else if (optimalMove === "Hit.") {
+            optimalMove += " You can also choose to double down or surrender in some situations.";
+          } else if (optimalMove === "Stand.") {
+            optimalMove += " You can also choose to double down or surrender in some situations.";
+          } else if (optimalMove === "Never split.") {
+            optimalMove += " You can also choose to double down or surrender in some situations.";
+          } else if (optimalMove === "Split.") {
+            optimalMove += " You can also choose to double down or surrender in some situations.";
+        } else if (playerScore === 15 && dealerUpCard === 10) {
+            // Surrender 15 against a dealer 10.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 16 && dealerUpCard === 9) {
+            // Surrender 16 against a dealer 9.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 16 && dealerUpCard === 10) {
+            // Surrender 16 against a dealer 10.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 16 && dealerUpCard === 11) {
+            // Surrender 16 against a dealer Ace.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 15 && dealerUpCard === 9) {
+            // Surrender 15 against a dealer 9.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 15 && dealerUpCard === 11) {
+            // Surrender 15 against a dealer Ace.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 14 && dealerUpCard === 10) {
+            // Surrender 14 against a dealer 10.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 14 && dealerUpCard === 11) {
+            // Surrender 14 against a dealer Ace.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 13 && dealerUpCard === 10) {
+            // Surrender 13 against a dealer 10.
+            optimalMove = "Surrender.";
+            } else if (playerScore === 12 && dealerUpCard >= 4 && dealerUpCard <= 6) {
+            // Double down on 12 against a dealer 4-6.
+            optimalMove = "Double down.";
+            } else if ((playerScore === 10 || playerScore === 11) && dealerUpCard <= 9) {
+            // Double down on 10 or 11 against a dealer 9 or lower.
+            optimalMove = "Double down.";
+            } else if (playerScore === 9 && dealerUpCard >= 3 && dealerUpCard <= 6) {
+            // Double down on 9 against a dealer 3-6.
+            optimalMove = "Double down.";
+            } else if (playerScore <= 8) {
+            // Hit on 8 or less.
+            optimalMove = "Hit.";
+            } else {
+            // Stand on 17 or more, hit on 16 or less.
+            if (playerScore >= 17) {
+            optimalMove = "Stand.";
+            } else {
+            optimalMove = "Hit.";
+            }
+            }
+            setOptimalMove(optimalMove);
+
         } else {
             setOptimalMove("");
-        }
-    }, [playerHand, dealerHand, gameOver]);
+            }
+            }, [playerHand, dealerHand, gameOver]);
+      
+      
 
     return (
         <Center className={styles.background}>
@@ -280,14 +379,11 @@ const BlackJackComp = () => {
                     />
                     <Menu>
                         <MenuButton as={Button} rightIcon={<ExpandMoreIcon />}>
-                            {`Running Count: ${runningCount}`}
+                            Insights
                         </MenuButton>
                         <MenuList>
-                            <MenuItem>Hit</MenuItem>
-                            <MenuItem>Stand</MenuItem>
-                            <MenuItem>Double Down</MenuItem>
-                            <MenuItem>Split</MenuItem>
-                            <MenuItem>Surrender</MenuItem>
+                            <MenuItem>{`Optimal Move: ${OptimalMove}`}</MenuItem>
+                            <MenuItem>{`Running Count: ${runningCount}`}</MenuItem>
                         </MenuList>
                     </Menu>
                 </HStack>

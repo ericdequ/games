@@ -1,9 +1,9 @@
-.blackJackBody {
+.arcade-body {
   margin: 0;
   font-family: 'Garamond', serif;
-}
-
-.background {
+  }
+  
+  .background-image {
   background-image: url("../../public/background/jesus.jpg");
   background-attachment: fixed;
   background-size: cover;
@@ -12,24 +12,24 @@
   height: 100vh;
   overflow: hidden;
   position: relative;
-}
-
-.overlay {
+  }
+  
+  .background-overlay {
   background-color: rgba(0, 0, 0, 0.6);
   height: 100%;
   position: absolute;
   width: 100%;
   z-index: 1;
-}
-
-.container {
+  }
+  
+  .container {
   height: 100%;
   position: relative;
   z-index: 2;
-}
-
-.button {
-  background-color: rgba(0, 0, 0, 0.3);
+  }
+  
+  .game-button {
+  background-color: var(--primary-color);
   border: 3px solid white;
   color: white;
   font-size: 1.2rem;
@@ -37,16 +37,22 @@
   box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.6);
   transition: all 0.3s;
   cursor: pointer;
-}
-
-.button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .game-button:hover {
+  background-color: var(--secondary-color);
   color: white;
   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.6);
-}
-
-.betInput {
+  }
+  
+  .bet-input {
   background-color: white;
   color: black;
   margin-bottom: 9px;
-}
+  }
+  
+  /* CSS variables for colors and other values */
+  :root {
+  --primary-color: rgba(0, 0, 0, 0.3);
+  --secondary-color: rgba(255, 255, 255, 0.3);
+  }
