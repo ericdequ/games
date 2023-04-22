@@ -45,12 +45,19 @@ export const games = [
     thumbnail: '/thumbnails/LLL1.jpg',
     instructions: `1. You have three chances to guess the card from a deck of cards.\n2. After each guess, the game will tell you if your guess is higher or lower.\n3. Keep track of your score of right and wrong guesses.`,
   },
+  
+  {
+    id: 'RingOfFire',
+    title: "RingOfFire",
+    url: "/game/RingOfFire",
+    thumbnail: '/ROF/ROF2.jpg',
+    instructions: `1. You have three chances to guess the card from a deck of cards.\n2. After each guess, the game will tell you if your guess is higher or lower.\n3. Keep track of your score of right and wrong guesses.`,
+  },
   {
     id: 'BlackJack',
     title: "BlackJack",
     url: "/game/BlackJack",
     thumbnail: '/thumbnails/4.jpg',
-    instructions: `1. You have three chances to guess the card from a deck of cards.\n2. After each guess, the game will tell you if your guess is higher or lower.\n3. Keep track of your score of right and wrong guesses.`,
   }
   
 ];

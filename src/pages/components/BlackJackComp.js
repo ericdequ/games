@@ -230,6 +230,20 @@ const BlackJackComp = () => {
         dealCards();
     };
 
+    function isSoft(hand) {
+        const values = hand.map(cardValue);
+        let numAces = values.filter((val) => val === 11).length;
+        let score = values.reduce((acc, val) => acc + val, 0);
+      
+        while (score > 21 && numAces > 0) {
+          score -= 10;
+          numAces--;
+        }
+      
+        return score !== values.reduce((acc, val) => acc + val, 0);
+      }
+
+      
     useEffect(() => {
         if (playerHand.length > 0 && dealerHand.length > 0 && !gameOver) {
           const playerScore = handValue(playerHand);

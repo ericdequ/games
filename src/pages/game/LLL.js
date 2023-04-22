@@ -31,6 +31,13 @@ import {
   Slide,
 } from "@chakra-ui/react";
 
+function speakRule(text) {
+  const synth = window.speechSynthesis;
+  synth.cancel(); // Cancel any ongoing speech
+  const utterance = new SpeechSynthesisUtterance(text);
+  synth.speak(utterance);
+}
+
 const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
 const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
 const MotionBox = motion(Box);
@@ -142,6 +149,8 @@ const LLL = () => {
 
     setState(prevState => {
       const newResult = guessedIndex < currentCardIndex ? "Higher" : "Lower";
+
+      speakRule(newResult);
 
       // Update the disabledRanks array
       const disabledRange = newResult === "Higher"
