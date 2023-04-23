@@ -65,5 +65,4 @@ export const games = [
     url: "/game/Roulette",
     thumbnail: '/thumbnails/Roulette.jpg',
   },*/
-  
 ];
