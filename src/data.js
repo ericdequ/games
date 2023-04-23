@@ -58,6 +58,12 @@ export const games = [
     title: "BlackJack",
     url: "/game/BlackJack",
     thumbnail: '/thumbnails/4.jpg',
-  }
+  },
+  /*{
+    id: 'Roulette',
+    title: "Roulette",
+    url: "/game/Roulette",
+    thumbnail: '/thumbnails/Roulette.jpg',
+  },*/
   
 ];

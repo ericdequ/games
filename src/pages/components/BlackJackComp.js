@@ -300,15 +300,15 @@ const BlackJackComp = () => {
           
           // Add options for splitting, doubling down, hitting, standing, or surrendering
           if (optimalMove === "Always split.") {
-            optimalMove += " You can also choose to double down or surrender in some situations.";
+            optimalMove += "   ";
           } else if (optimalMove === "Hit.") {
-            optimalMove += " You can also choose to double down or surrender in some situations.";
+            optimalMove += "   ";
           } else if (optimalMove === "Stand.") {
-            optimalMove += " You can also choose to double down or surrender in some situations.";
+            optimalMove += "   ";
           } else if (optimalMove === "Never split.") {
-            optimalMove += " You can also choose to double down or surrender in some situations.";
+            optimalMove += "   ";
           } else if (optimalMove === "Split.") {
-            optimalMove += " You can also choose to double down or surrender in some situations.";
+            optimalMove += "   ";
         } else if (playerScore === 15 && dealerUpCard === 10) {
             // Surrender 15 against a dealer 10.
             optimalMove = "Surrender.";
@@ -363,105 +363,111 @@ const BlackJackComp = () => {
             }
             }, [playerHand, dealerHand, gameOver]);
       
-      
-
-    return (
-        <Center className={styles.background}>
-            <Box className={styles.overlay} />
-            <VStack className={styles.container} spacing={6}>
-                {!betPlaced && (
-                    <HStack>
+            return (
+                <Center bg="gray.800" minHeight="100vh">
+                  <VStack spacing={6} maxWidth="container.lg" width="100%" p={4}>
+                    {!betPlaced && (
+                      <HStack>
                         <Input
-                            type="number"
-                            placeholder="Enter bet amount"
-                            value={betAmount}
-                            onChange={(e) => setBetAmount(parseInt(e.target.value))}
-                            min={1}
-                            max={balance}
-                            className={styles.betInput}
+                          type="number"
+                          placeholder="Enter bet amount"
+                          value={betAmount}
+                          onChange={(e) => setBetAmount(parseInt(e.target.value))}
+                          min={1}
+                          max={balance}
+                          bg="white"
+                          borderRadius="md"
                         />
-                        <Button className={styles.button} onClick={() => placeBet(betAmount)}>Place Bet</Button>
-                    </HStack>
-                )}
-                <HStack zIndex={10} position="fixed" top={4} right={4}>
-                    <IconButton
+                        <Button colorScheme="teal" onClick={() => placeBet(betAmount)}>
+                          Place Bet
+                        </Button>
+                      </HStack>
+                    )}
+                    <HStack zIndex={10} position="fixed" top={4} right={4}>
+                      <IconButton
                         colorScheme="teal"
                         onClick={() => router.back()}
                         aria-label="Back to Home"
                         icon={<ArrowBackIcon />}
-                    />
-                    <Menu>
-                        <MenuButton as={Button} rightIcon={<ExpandMoreIcon />}>
-                            Insights
+                      />
+                      <Menu>
+                        <MenuButton as={Button} rightIcon={<ExpandMoreIcon />} colorScheme="teal">
+                          Insights
                         </MenuButton>
                         <MenuList>
-                            <MenuItem>{`Optimal Move: ${OptimalMove}`}</MenuItem>
-                            <MenuItem>{`Running Count: ${runningCount}`}</MenuItem>
+                          <MenuItem>{`Optimal Move: ${OptimalMove}`}</MenuItem>
+                          <MenuItem>{`Running Count: ${runningCount}`}</MenuItem>
                         </MenuList>
-                    </Menu>
-                </HStack>
-                <Text fontSize="4xl" fontWeight="bold" color="white">Dealer's Hand</Text>
-                <HStack>
-                    {dealerHand.map((card, index) => (
+                      </Menu>
+                    </HStack>
+                    <Text fontSize="4xl" fontWeight="bold" color="white">
+                      Dealer's Hand
+                    </Text>
+                    <HStack>
+                      {dealerHand.map((card, index) => (
                         <Box
-                            key={index}
-                            border="1px solid"
-                            borderRadius="md"
-                            p="2"
-                            borderColor="gray.300"
-                            bg="white"
-                            color="black.800"
+                          key={index}
+                          border="1px solid"
+                          borderRadius="md"
+                          p="2"
+                          borderColor="gray.300"
+                          bg="white"
+                          color="gray.800"
                         >
-                            <Text>{index === 0 && !gameOver ? "Hidden" : card.rank}</Text>
-                            <Text>{index === 0 && !gameOver ? "Hidden" : card.suit}</Text>
+                          <Text>{index === 0 && !gameOver ? 'Hidden' : card.rank}</Text>
+                          <Text>{index === 0 && !gameOver ? 'Hidden' : card.suit}</Text>
                         </Box>
-                    ))}
-                </HStack>
-                <Text fontSize="4xl" fontWeight="bold" color="white">Your Hand</Text>
-                <HStack>
-                    {playerHand.map((card, index) => (
+                      ))}
+                    </HStack>
+                    <Text fontSize="4xl" fontWeight="bold" color="white">
+                      Your Hand
+                    </Text>
+                    <HStack>
+                      {playerHand.map((card, index) => (
                         <Box
-                            key={index}
-                            border="1px solid"
-                            borderRadius="md"
-                            p="2"
-                            borderColor="gray.300"
-                            bg="white"
-                            color="gray.800"
+                          key={index}
+                          border="1px solid"
+                          borderRadius="md"
+                          p="2"
+                          borderColor="gray.300"
+                          bg="white"
+                          color="gray.800"
                         >
-                            <Text>{card.rank}</Text>
-                            <Text>{card.suit}</Text>
+                          <Text>{card.rank}</Text>
+                          <Text>{card.suit}</Text>
                         </Box>
-                    ))}
-                </HStack>
-                <Text fontSize="2xl" fontWeight="bold" color="white">Your Total: {handValue(playerHand)}</Text>
-                <HStack spacing={4}>
-                    <Button className="button" onClick={hit} isDisabled={!betPlaced || gameOver}>
+                      ))}
+                    </HStack>
+                    <Text fontSize="2xl" fontWeight="bold" color="white">
+                      Your Total: {handValue(playerHand)}
+                    </Text>
+                    <HStack spacing={4}>
+                      <Button colorScheme="teal" onClick={hit} isDisabled={!betPlaced || gameOver}>
                         Hit
-                    </Button>
-                    <Button className="button" onClick={stand} isDisabled={!betPlaced || gameOver}>
-                        Stand
-                    </Button>
-                    <Button className="button" onClick={doubleDown} isDisabled={!betPlaced || gameOver}>
-                        Double Down
-                    </Button>
-                    <Button className="button" onClick={split} isDisabled={!betPlaced || gameOver || !canSplit()}>
-                        Split
-                    </Button>
-                    <Button className="button" onClick={surrender} isDisabled={!betPlaced || gameOver}>
-                        Surrender
-                    </Button>
-                </HStack>
-                {gameOver && (
-                    <VStack>
-                        <Text fontSize="2xl" fontWeight="bold" color="white">{gameMessage}</Text>
-                        <Button className={styles.button} onClick={startNewGame}>Play Again</Button>
-                    </VStack>
-                )}
-                <Text fontSize="xl" fontWeight="bold" color="white">Balance: ${balance}</Text>
-            </VStack>
-        </Center>
-    );
+                      </Button>
+                      <Button colorScheme="teal" onClick={stand} isDisabled={!betPlaced || gameOver}>
+            Stand
+          </Button>
+          <Button colorScheme="teal" onClick={doubleDown} isDisabled={!betPlaced || gameOver}>
+            Double Down
+          </Button>
+          <Button colorScheme="teal" onClick={split} isDisabled={!betPlaced || gameOver || !canSplit()}>
+            Split
+          </Button>
+          <Button colorScheme="teal" onClick={surrender} isDisabled={!betPlaced || gameOver}>
+            Surrender
+          </Button>
+        </HStack>
+        {gameOver && (
+          <VStack>
+            <Text fontSize="2xl" fontWeight="bold" color="white">{gameMessage}</Text>
+            <Button colorScheme="teal" onClick={startNewGame}>Play Again</Button>
+          </VStack>
+        )}
+        <Text fontSize="xl" fontWeight="bold" color="white">Balance: ${balance}</Text>
+      </VStack>
+    </Center>
+  );
 };
 
 export default BlackJackComp;

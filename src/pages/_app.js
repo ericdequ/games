@@ -1,5 +1,16 @@
 // pages/_app.js
-import { ChakraProvider, extendTheme, CSSReset, Box } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme, CSSReset,  Center,
+  Box,
+  VStack,
+  HStack,
+  Text,
+  Input,
+  Button,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList, } from "@chakra-ui/react";
 import "@fontsource/press-start-2p/400.css"; // Import the arcade font
 
 const theme = extendTheme({
