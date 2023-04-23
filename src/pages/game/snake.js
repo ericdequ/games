@@ -39,7 +39,7 @@ export default function Snake() {
         alignItems="center"
         minHeight="100vh"
         position="relative"
-        bg={colorMode === 'light' ? 'white' : 'gray.800'}
+        bg={colorMode === 'light' ? 'black' : 'gray.800'}
         style={isMobile ? snakeBackgroundStyle : null}
       >
         <Box>

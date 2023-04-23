@@ -58,7 +58,7 @@ const SnakeGameComponent = () => {
       >
         Snake Game
       </Heading>
-      <Box className={styles.scoreBoard}>{score}</Box>
+      <Box className={styles.scoreBoard}>{}</Box>
       <Box w="100%" maxW="500px">
         <Snake
           color1={snakeColor}
