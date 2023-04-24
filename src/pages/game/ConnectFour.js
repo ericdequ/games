@@ -140,32 +140,30 @@ const ConnectFour = () => {
     };
 
     return (
-        
-            <StyledCanvas>
-                <ambientLight />
-                <pointLight position={[10, 10, 10]} />
-                {board.map((row, rowIndex) =>
-                    row.map((cell, columnIndex) => (
-                        <Sphere
-                            key={${rowIndex}- ${ columnIndex }}
-                position={[columnIndex, rowIndex, 0]}
-                color={cell === 0 ? "white" : cell === 1 ? "#ff4747" : "#ffe600"}
-                onClick={() => {
-                    if (!isGameOver) {
-                        handleColumnClick(columnIndex);
-                    }
-                }}
-
+        <StyledCanvas>
+            <ambientLight />
+            <pointLight position={[10, 10, 10]} />
+            <pointLight position={[-10, -10, 10]} />
+            {board.map((row, rowIndex) =>
+                row.map((cell, columnIndex) => (
+                    <Sphere
+                        key={`${rowIndex}-${columnIndex}`}
+                        position={[columnIndex - 3, rowIndex - 2.5, 0]}
+                        color={cell === 0 ? "white" : cell === 1 ? "#ff4747" : "#ffe600"}
+                        onClick={() => {
+                            if (!isGameOver) {
+                                handleColumnClick(columnIndex);
+                            }
+                        }}
+                    />
                 ))
-                )}  
-            </StyledCanvas>
-            {isGameOver && (
-                <WinnerMessage>{winningPlayer ? Player ${winningPlayer} wins! : "It's a draw!"}</WinnerMessage>
             )}
         
-            
-    );
-
+        {isGameOver && (
+            <WinnerMessage>{winningPlayer ? `Player ${winningPlayer} wins!` : "It's a draw!"}</WinnerMessage>
+        )}
+        </StyledCanvas>
+);
 };
 
-    export default ConnectFour;  
+export default ConnectFour;

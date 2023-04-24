@@ -1,7 +1,7 @@
 import React, { useState, Suspense } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { Box } from '@chakra-ui/react';
-import { useTexture } from '@react-three/drei';
+import { useTexture } from '@react-three/fiber';
 
 const X = () => {
   const texture = useTexture('/textures/x.png');

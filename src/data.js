@@ -65,6 +65,35 @@ export const games = [
     url: "/game/BouncingBall",
     thumbnail: '/thumbnails/4.jpg',
   },
-  
+  {
+    id:'ConnectFour',
+    title: "ConnectFour",
+    url: "/game/ConnectFour",
+    thumbnail: '/thumbnails/4.jpg',
 
+  },
+  {
+    id:'TrippySwirl',
+    title:"TrippySwirl",
+    url:"/game/TrippySwirl",
+    thumbnail:'/thumbnails/4.jpg',
+  },
+  {
+    id:'TikTakToe',
+    title:"TikTakToe",
+    url:"/game/TikTakToe",
+    thumbnail:'/thumbnails/4.jpg',
+  },
+  {
+    id:'SnakeThreed',
+    title:"SnakeThreed",
+    url:"/game/SnakeThreed",
+    thumbnail:'/thumbnails/4.jpg',
+  },
+  {
+    id:'WakeBoard',
+    title: "Wakeboard",
+    url:"/game/WakeBoard",
+    thumbnail:'/thumbnails/4.jpg',
+  }
 ];

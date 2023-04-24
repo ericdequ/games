@@ -5,9 +5,9 @@ import BouncingBallsGame from "../components/BouncingBallsGame";
 const BouncingBall = () => {
     return (
         <>
-            <Box minH="100vh">
+           
                 <BouncingBallsGame />
-            </Box>
+       
         </>
     );
 };
