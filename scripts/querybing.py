@@ -12,9 +12,21 @@ CHROME_DRIVER_PATH = "C:/users/ericd/dev/personal/chromedriver_win32/chromedrive
 
 
 roulette = [    "A close-up of a roulette wheel, spinning in slow motion.",    "A group of people gathered around a roulette table, placing their bets.",    "A croupier spinning the roulette wheel and dropping the ball into the center.",    "The ball bouncing around the wheel before coming to rest on a number.",    "A croupier announcing the winning number and paying out the winning bets.",    "A happy winner celebrating their big win at the roulette table.",    "A disappointed loser walking away from the roulette table after losing their money.",    "A casino floor crowded with people playing roulette and other games.",    "The excitement and energy of a casino at night, with the roulette wheel spinning and the chips flying.",    "The thrill of gambling and the possibility of winning big at the roulette table."]
+ER_LOGO = [
+    "An intricately designed ED logo featuring a fierce Florida alligator",
+    "A intricately crafted Viking-themed ED logo, with intricate details and patterns",
+    "An ED logo incorporating a majestic pyramid, with intricate details and symbols",
+    "An ED logo with a stunning starry background, filled with intricate patterns and shapes",
+    "An ED logo with a Florida alligator in the foreground, surrounded by intricate flora and fauna",
+    "An ED logo in the style of a intricately designed Viking shield, with intricate engravings and designs",
+    "An ED logo featuring a pyramid surrounded by intricate star patterns and constellations",
+    "An ED logo with a Florida alligator holding a shining star, with intricate details and shading",
+    "An ED logo combining elements of a intricate Viking design and a majestic pyramid, with intricate details and symbols",
+    "An ED logo featuring a starry sky over a Florida alligator, with intricate details and lighting effects"
+]
 
 products = {
-  "roulette": roulette
+    "ed_logo": ER_LOGO,
 }
 
 
