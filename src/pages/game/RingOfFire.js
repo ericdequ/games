@@ -75,7 +75,6 @@ const headingStyle = css`
 
 const suits = ["♠️", "♥️", "♦️", "♣️"];
 const cards = [
-  "Ace",
   "2",
   "3",
   "4",
@@ -88,24 +87,25 @@ const cards = [
   "Jack",
   "Queen",
   "King",
+  "Ace",
 ];
 
 const rules = {
-  Ace: "Waterfall – The person who picks the card starts drinking and everyone else follows suit until they stop. This could go on for a while, so hold on tight! 💦",
-  2: "Choose – Pick a lucky (or unlucky) person to take a drink. Who's it gonna be? 🤔",
-  3: "Me – Time for you to take a sip, champ. 🍻",
-  4: "Wh0re – All the ladies in the group take a drink. 🍷",
-  5: "Thumb Master – Place your thumb on the table and watch as everyone follows suit. The last person to do so takes a drink. You're the Thumb Master until someone else picks a five. 👍",
-  6: "Dicks – Fellas, it's time to raise your glasses and take a swig. 🍺",
-  7: "Heaven – Point your finger to the sky and watch as your friends try to keep up. The last person to do so takes a drink. ☝️",
-  8: "Mate – Choose someone to be your drinking partner in crime. Whenever you drink, they drink too! 🍻👯‍♂️",
-  9: "Rhyme – Pick a word, like 'fog,' and let the rhyming begin. Keep going around the circle until someone stumbles and has to drink. 🎶",
-  10: "Categories – Choose a category, like 'football,' and let the words flow. Keep going until someone fumbles and takes a drink. 🏈",
-  Jack: "Make a Rule – Make up a rule that everyone has to follow, like 'you can only drink with your left hand.' If anyone breaks the rule, they have to take a drink. 😜",
+  2: "You – Time to play favorites! Pick someone to take a drink – who's the lucky (or unlucky) one? 😏",
+  3: "Me – Bottoms up, champ! Time for you to take a swig of that sweet nectar. 🍻",
+  4: "WHORES – All the fabulous ladies in the group, it's your time to shine and sip. Cheers, darlings! 🍷",
+  5: "Thumb Master – Unleash your inner ninja and place your thumb on the table. Watch the chaos as everyone scrambles to follow. The last person takes a drink. You're the Thumb Master until dethroned. 👍",
+  6: "DICKS – Gentlemen, unite! Raise those glasses and take a hearty swig together. 🍺",
+  7: "Heaven – Point skyward like you're reaching for the stars! The last person to follow suit takes a drink. ☝️",
+  8: "Mate – Find your drinking soulmate! Whenever you drink, they must too – sharing is caring, after all. 🍻👯‍♂️",
+  9: "Rhyme-Time – Start a poetic chain with a word like 'slug,' and let the rhyming begin. When someone fumbles, they take a drink. 🎶",
+  10: "Categories – Unleash your inner genius by choosing a category like '80s movies.' Keep going until someone's brain short-circuits and they take a drink. 📽️",
+  Jack: "Rule Maker – Channel your inner tyrant and create a rule everyone must follow, like 'no laughing allowed.' Rule-breakers, prepare to drink! 😜",
   Queen:
-    "Questions – Keep the conversation flowing by asking each other questions. Whoever stumbles and forgets to ask a question has to take a drink. 🍷",
-  King: "Pour! – Pour a little bit of your drink into the cup in the middle of the table. Whoever picks up the LAST king has to drink the entire concoction, which could be a mix of different drinks. 🤢",
-};
+  "Question Frenzy – Get your thinking caps on! Ask each other questions in a rapid-fire frenzy. Whoever forgets to ask a question drinks up. 🍷",
+  King: "King Cup – Add some of your drink to the central cup. Whoever's unlucky enough to pick the LAST king drinks the entire Frankenstein concoction. 🤢",
+  Ace: "Waterfall – Ready, set, chug! The card-picker starts drinking, and everyone follows. The waterfall only stops when the initiator does. Brace yourselves! 💦",
+  };
 
 function speakRule(text) {
   const synth = window.speechSynthesis;
@@ -126,6 +126,7 @@ function RingOfFire() {
   // ... existing state variables
   const [gameStarted, setGameStarted] = useState(false);
   const [players, setPlayers] = useState([]);
+  const [currentRules, setCurrentRules] = useState(rules);
 
   // ... existing useEffect
 
@@ -181,7 +182,7 @@ function RingOfFire() {
         setCurrentCard(newCard);
         setFlipped(true);
         setButtonLabel("Close Rule");
-        speakRule(rules[newCard.card]);
+        speakRule(currentRules[newCard.card]);
       }
     }
   }
@@ -231,7 +232,7 @@ function RingOfFire() {
               {currentCard ? `${currentCard.card} ${currentCard.suit}` : ""}
             </Text>
             <Text fontSize="md" color="gray.200" css={rulesStyle}>
-              {currentCard ? rules[currentCard.card] : ""}
+              {currentCard ? currentRules[currentCard.card] : ""}
             </Text>
           </Flip>
         </Box>
@@ -268,15 +269,15 @@ function RingOfFire() {
           <ModalHeader>Edit Rules</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {Object.entries(rules).map(([key, value]) => (
+            {Object.entries(currentRules).map(([key, value]) => (
               <FormControl key={key} my={2}>
                 <FormLabel>{key}</FormLabel>
                 <Input
                   value={value}
                   onChange={(e) => {
-                    const newRules = { ...rules };
+                    const newRules = {...currentRules};
                     newRules[key] = e.target.value;
-                    setRules(newRules);
+                    setcurrentRules(newRules);
                   }}
                 />
               </FormControl>
