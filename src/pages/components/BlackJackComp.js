@@ -367,7 +367,7 @@ const BlackJackComp = () => {
 
   return (
     <Center bg="gray.800" minHeight="100vh">
-      <VStack spacing={6} maxWidth="container.lg" width="100%" p={4}>
+      <VStack spacing={6} maxWidth="container.lg" width="100%" p={4} className={styles.container}>
         {!betPlaced && (
           <HStack>
             <Input
@@ -379,8 +379,9 @@ const BlackJackComp = () => {
               max={balance}
               bg="white"
               borderRadius="md"
+              className={styles.betInput}
             />
-            <Button colorScheme="teal" onClick={() => placeBet(betAmount)}>
+            <Button colorScheme="teal" onClick={() => placeBet(betAmount)} className={styles.button}>
               Place Bet
             </Button>
           </HStack>
@@ -429,32 +430,34 @@ const BlackJackComp = () => {
           Your Hand
         </Text>
         <HStack>
-          {playerHand.map((card, index) => (
-            <Box
-              key={index}
-              border="1px solid"
-              borderRadius="md"
-              p="2"
-              borderColor="gray.300"
-              bg="white"
-              color="gray.800"
-            >
-              <Text>{card.rank}</Text>
-              <Text>{card.suit}</Text>
-            </Box>
-          ))}
-        </HStack>
+        {playerHand.map((card, index) => (
+          <Box
+            key={index}
+            border="1px solid"
+            borderRadius="md"
+            p="2"
+            borderColor="gray.300"
+            bg="white"
+            color="gray.800"
+            className={styles.card}
+          >
+            <Text className={styles.cardRankSuit}>{card.rank}</Text>
+            <Text className={styles.cardRankSuit}>{card.suit}</Text>
+          </Box>
+        ))}
+      </HStack>
         <Text fontSize="2xl" fontWeight="bold" color="white">
           Your Total: {handValue(playerHand)}
         </Text>
         <HStack spacing={4}>
-          <Button
-            colorScheme="teal"
-            onClick={hit}
-            isDisabled={!betPlaced || gameOver}
-          >
-            Hit
-          </Button>
+        <Button
+          colorScheme="teal"
+          onClick={hit}
+          isDisabled={!betPlaced || gameOver}
+          className={styles.button}
+        >
+          Hit
+        </Button>
           <Button
             colorScheme="teal"
             onClick={stand}
@@ -477,12 +480,13 @@ const BlackJackComp = () => {
             Split
           </Button>
           <Button
-            colorScheme="teal"
-            onClick={surrender}
-            isDisabled={!betPlaced || gameOver}
-          >
-            Surrender
-          </Button>
+          colorScheme="teal"
+          onClick={surrender}
+          isDisabled={!betPlaced || gameOver}
+          className={styles.button}
+        >
+          Surrender
+        </Button>
         </HStack>
         {gameOver && (
           <VStack>
