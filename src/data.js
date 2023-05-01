@@ -29,7 +29,7 @@ export const games = [
     url: "https://scratch.mit.edu/projects/222792883",
     iframe: '<iframe src="https://scratch.mit.edu/projects/222792883/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>',
     thumbnail: '/thumbnails/meow.png',
-    instructions: `1. Join Meowio on his quest to reach the portal! Move right, jump on platforms, and dodge those annoying enemies! 🐾\n2. Defeat foes and collect power-ups to help you on your journey. 🚀\n3. Grab that fire flower, and press **space** to shoot fireballs like a true cat-astrophic hero! 🔥, }, { id: 'snake', title: "Snake Game", url: "/game/snake", thumbnail: '/thumbnails/snake.png', instructions: 1. Slither your way to victory by using the arrow keys to change your snake's direction. 🐍\n2. Munch on the tasty food to grow your snake and rack up those points! 🍎\n3. Watch out for your own tail – if you bump into yourself, it's game over! 💥`,
+    instructions: `1. Join Meowio on his quest to reach the portal! Move right, jump on platforms, and dodge those annoying enemies! 🐾\n2. Defeat foes and collect power-ups to help you on your journey. 🚀\n3. Grab that fire flower, and press **space** to shoot fireballs like a true cat-astrophic hero! 🔥, }`
   },
   {
     id: 'snake',
@@ -51,13 +51,14 @@ export const games = [
     title: "RingOfFire",
     url: "/game/RingOfFire",
     thumbnail: '/ROF/ROF2.jpg',
-    instructions: `1. You have three chances to guess the card from a deck of cards.\n2. After each guess, the game will tell you if your guess is higher or lower.\n3. Keep track of your score of right and wrong guesses.`,
+    instructions: `1. Classic drinking game named ring of Fire or Kings Cup. \n2. Click on the deck to draw a card. \n3. Follow the instructions on the card. \n4. Enjoy!`,
   },
   {
     id: 'BlackJack',
     title: "BlackJack",
     url: "/game/BlackJack",
     thumbnail: '/thumbnails/4.jpg',
+    instructions: '1. Click on the deck to draw a card. \n2. Try to get as close to 21 as possible without going over. \n3. If you go over 21 you lose. \n4. Enjoy!',
   },
   /*{
     id: 'Roulette',

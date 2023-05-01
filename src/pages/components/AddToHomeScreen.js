@@ -13,12 +13,12 @@ const customStyles = {
     borderRadius: '10px',
     padding: '30px',
     textAlign: 'center',
-    border: '4px solid #8e44ad',
+    border: '4px solid #805AD5',
     color: 'white',
     fontSize: '22px',
   },
   button: {
-    backgroundColor: '#8e44ad',
+    backgroundColor: '#805AD5',
     border: 'none',
     borderRadius: '5px',
     color: 'white',
@@ -38,7 +38,6 @@ const customStyles = {
     fontSize: '18px',
   },
 };
-
 
 const AddToHomeScreenButton = () => {
   const [isIOS, setIsIOS] = useState(false);
@@ -62,7 +61,7 @@ const AddToHomeScreenButton = () => {
       setModalContent(`
         
         <ol>
-          <li>scroll Down to make sure task bar is visable </li>
+          <li>swipe Down to make sure task bar is visable </li>
           <li>Tap the share icon at the bottom of the screen (it looks like a square with an arrow pointing upward).</li>
           <li>Scroll down and tap "Add to Home Screen".</li>
           <li>Choose a name for the shortcut and tap "Add" to finish.</li>

@@ -34,11 +34,12 @@ const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
   return (
     <Box
       key={game.id}
-      bg={colorMode === 'light' ? 'white' : 'gray.700'}
+      bg="purple.500"
+      color="white"
       borderRadius="lg"
       p={4}
       boxShadow="xl"
-      _hover={{ transform: 'scale(1.05)', transition: 'all 0.3s' }}
+      _hover={{ transform: 'scale(1.23)', transition: 'all 1.0s' }}
     >
       <Image
         src={game.thumbnail}
@@ -62,7 +63,7 @@ const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
         <IconButton
           aria-label="Show instructions"
           icon={<InfoOutlineIcon />}
-          colorScheme="gray"
+          colorScheme="purple.500"
           variant="outline"
           isRound
           size="sm"
@@ -92,6 +93,7 @@ const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
   );
 });
 
+
 export default function Home() {
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
@@ -101,11 +103,11 @@ export default function Home() {
     setSelectedGame(null);
   };
 
+
   const scrollToGames = () => {
     const gamesSection = document.getElementById('gamesSection');
     gamesSection.scrollIntoView({ behavior: 'smooth' });
   };
-
   return (
     <>
       <Head>
@@ -140,7 +142,7 @@ export default function Home() {
             <Heading
               as="h1"
               size="2xl"
-              color="white"
+              color="purple.500"
               fontFamily="'Press Start 2P', monospace"
               letterSpacing="0.1em"
             >
@@ -148,13 +150,20 @@ export default function Home() {
             </Heading>
            
             <Text
-              color="white"
+              color="purple.500"
               fontFamily="'Press Start 1P', monospace"
               letterSpacing="0.1em"
               size="1xl"
             >
-              Note: Snake and LLL are the only games available on mobile at the moment
-              (Black Jack in development )
+              Not all games are available on mobile 📲
+              </Text>
+              <Text
+              color="purple.500"
+              fontFamily="'Press Start 1P', monospace"
+              letterSpacing="0.1em"
+              size="1xl"
+              >
+              (Black Jack in development ...)
             </Text>
             <AddToHomeScreenButton />
             <IconButton
@@ -162,6 +171,7 @@ export default function Home() {
               icon={<ChevronDownIcon boxSize={8} />}
               colorScheme="whiteAlpha"
               onClick={scrollToGames}
+              backgroundColor='#805AD5'
             />
           </VStack>
         </Flex>
