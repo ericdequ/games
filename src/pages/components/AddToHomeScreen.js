@@ -14,6 +14,8 @@ const customStyles = {
     padding: '30px',
     textAlign: 'center',
     border: '4px solid #8e44ad',
+    color: 'white',
+    fontSize: '22px',
   },
   button: {
     backgroundColor: '#8e44ad',
@@ -38,12 +40,6 @@ const customStyles = {
 };
 
 
-
-
-
-
-
-
 const AddToHomeScreenButton = () => {
   const [isIOS, setIsIOS] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
@@ -64,7 +60,7 @@ const AddToHomeScreenButton = () => {
   const handleButtonClick = () => {
     if (isIOS) {
       setModalContent(`
-        <h2>How to add this app to your home screen on iOS:</h2>
+        
         <ol>
           <li>scroll Down to make sure task bar is visable </li>
           <li>Tap the share icon at the bottom of the screen (it looks like a square with an arrow pointing upward).</li>
@@ -74,7 +70,7 @@ const AddToHomeScreenButton = () => {
       `);
     } else if (isAndroid) {
       setModalContent(`
-        <h2>How to add this app to your home screen on Android:</h2>
+        
         <ol>
           <li>Tap the menu button (three vertical dots) at the top-right corner of the screen.</li>
           <li>Tap "Add to Home screen".</li>
@@ -83,7 +79,7 @@ const AddToHomeScreenButton = () => {
       `);
     } else {
       setModalContent(`
-      <h2>How to add this app to your desktop:</h2>
+      
       <ol>
         <li>Click in address/search bar highlight URL </li>
         <li>Resize the browser window so that you can see the desktop.</li>
