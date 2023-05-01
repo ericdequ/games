@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon, InfoOutlineIcon } from '@chakra-ui/icons';
 import { games } from '../data';
+import AddToHomeScreenButton from './components/AddToHomeScreen';
 
 const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
   const { colorMode } = useColorMode();
@@ -145,6 +146,7 @@ export default function Home() {
             >
               Games Showcase
             </Heading>
+           
             <Text
               color="white"
               fontFamily="'Press Start 1P', monospace"
@@ -154,6 +156,7 @@ export default function Home() {
               Note: Snake and LLL are the only games available on mobile at the moment
               (Black Jack in development )
             </Text>
+            <AddToHomeScreenButton />
             <IconButton
               aria-label="Scroll down"
               icon={<ChevronDownIcon boxSize={8} />}
