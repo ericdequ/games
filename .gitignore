@@ -42,3 +42,14 @@ images/
 images/*
 images
 images/**/*
+
+images 
+
+.next/
+.next/*
+.next
+
+scripts/
+scripts/*
+scripts
+

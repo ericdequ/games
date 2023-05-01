@@ -31,12 +31,19 @@ import {
   Slide,
 } from "@chakra-ui/react";
 
-function speakRule(text) {
+const speakRule = (text) => {
   const synth = window.speechSynthesis;
   synth.cancel(); // Cancel any ongoing speech
-  const utterance = new SpeechSynthesisUtterance(text);
-  synth.speak(utterance);
-}
+
+  if (text === "win") {
+    console.log("win");
+  } else if (text === "lose") {
+    console.log("lose");
+  } else {
+    const utterance = new SpeechSynthesisUtterance(text);
+    synth.speak(utterance);
+  }
+};
 
 const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
 const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
@@ -139,52 +146,47 @@ const LLL = () => {
   const guess = (guess) => {
     const { currentCard, chances } = state;
     const newChances = chances - 1;
-
+  
     const guessedIndex = ranks.indexOf(guess);
     const currentCardIndex = ranks.indexOf(currentCard.rank);
-
-
+  
     // Calculate remaining valid ranks
     const validRanks = ranks.filter(rank => !disabledRanks.includes(rank) && rank !== currentCard.rank);
-
+  
     setState(prevState => {
       const newResult = guessedIndex < currentCardIndex ? "Higher" : "Lower";
-
-      speakRule(newResult);
-
+  
+      // Only call speakRule if there are still guesses left and the user hasn't won or lost
+      if (newChances > 0 && guess !== currentCard.rank) {
+        speakRule(newResult);
+      }
+  
       // Update the disabledRanks array
       const disabledRange = newResult === "Higher"
         ? ranks.slice(0, guessedIndex + 1)
         : ranks.slice(guessedIndex);
       const newDisabledRanks = [...disabledRanks, ...disabledRange].filter((value, index, self) => self.indexOf(value) === index);
-
+  
       setDisabledRanks(newDisabledRanks);
       if (guess === currentCard.rank && newChances >= 0) {
         setTimeout(() => restart(true), 2000);
+        speakRule("win"); // Play the winning sound
         return {
           ...prevState, result: `Correct`,
           showCurrentCard: true,
         };
       } else if (newChances === 0) {
         setTimeout(() => restart(false), 2000);
+        speakRule("lose"); // Play the losing sound
         return {
           ...prevState,
           showCurrentCard: true,
         };
       } else {
-        // Calculate probability of guessing correctly
-
-        if (state.result.includes("Correct")) {
-          return {
-            ...prevState,
-            chances: newChances,
-          };
-        } else {
-          return {
-            ...prevState,
-            chances: newChances,
-            result: `${newResult}`
-          }
+        return {
+          ...prevState,
+          chances: newChances,
+          result: `${newResult}`
         }
       }
     });
@@ -434,8 +436,12 @@ const LLL = () => {
           ))}
         </SimpleGrid>
       </VStack>
+      
     </Container>
+    
   );
 };
 
 export default LLL;
+
+
