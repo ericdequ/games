@@ -6,7 +6,7 @@ export default function Document() {
       <Head >
       <meta name="google-site-verification" content="At3RZ4YGQtXrtPbI2UKNk1aKwGJ5P7goMttGiLMTaT4" />
       
-      <Head/>
+      </Head>
       <body>
         <Main />
         <NextScript />
