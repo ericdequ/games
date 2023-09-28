@@ -39,7 +39,7 @@ const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
       borderRadius="lg"
       p={4}
       boxShadow="xl"
-      _hover={{ transform: 'scale(1.23)', transition: 'all 1.0s' }}
+      _hover={{ transform: 'scale(1.11)', transition: 'all 3.0s' }}
     >
       <Image
         src={game.thumbnail}
