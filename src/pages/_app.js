@@ -11,6 +11,7 @@ import { ChakraProvider, extendTheme, CSSReset,  Center,
   MenuButton,
   MenuItem,
   MenuList, } from "@chakra-ui/react";
+  import { useInstallPrompt } from "../hooks/useInstallPrompt"; // Import the custom hook
 import "@fontsource/press-start-2p/400.css"; // Import the arcade font
 
 const theme = extendTheme({
@@ -30,10 +31,15 @@ const theme = extendTheme({
   },
 });
 
+const [installPromptEvent, handleInstall] = useInstallPrompt(); // Use the custom hook
+
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
       <CSSReset />
+      {installPromptEvent && (
+          <button onClick={handleInstall}></button>
+        )}
       <Component {...pageProps} />
     </ChakraProvider>
   );
