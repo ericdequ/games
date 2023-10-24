@@ -7,23 +7,23 @@ export default function Document() {
       <meta name="google-site-verification" content="At3RZ4YGQtXrtPbI2UKNk1aKwGJ5P7goMttGiLMTaT4" />
       <link rel="manifest" href="/manifest.json" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <link rel="apple-touch-icon" href="https://games-gold-nu.vercel.app/favicon.ico" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-title" content="Games Gold" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      <link rel="apple-touch-icon" href="https://games-gold-nu.vercel.app/logosmall.png" />
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Organization",
   "url": "https://games-gold-nu.vercel.app/",
-  "logo": "https://games-gold-nu.vercel.app/favicon.ico"
+  "logo": "https://games-gold-nu.vercel.app/logo.png"
 }) }} />
 
       
       <link rel="icon" href="/favicon.ico" />
       
       
+      
       </Head>
       <body>
+        
         <Main />
         <NextScript />
       </body>

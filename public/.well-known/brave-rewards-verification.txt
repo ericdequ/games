@@ -1,0 +1,4 @@
+This is a Brave Creators publisher verification file.
+
+Domain: quantumlearn.vercel.app
+Token: 328458a9185b2b59190e84293184a6f9796ccdb928873eae0c9585af1bf6fc39

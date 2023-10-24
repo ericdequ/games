@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-
+import  useInstallPrompt from '../../hooks/useInstallPrompt';
 const customStyles = {
   content: {
     top: '50%',
@@ -91,6 +91,7 @@ const AddToHomeScreenButton = () => {
         <li>Make sure to save page in desktop</li>
       `);
     }
+    useInstallPrompt();
     setModalIsOpen(true);
   };
 

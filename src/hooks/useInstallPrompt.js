@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const useInstallPrompt = () => {
+const useInstallPrompt = () => {
   const [installPromptEvent, setInstallPromptEvent] = useState(null);
 
   useEffect(() => {
@@ -29,3 +29,6 @@ export const useInstallPrompt = () => {
 
   return [installPromptEvent, handleInstall];
 };
+
+
+export default useInstallPrompt;

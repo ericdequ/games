@@ -1,16 +1,28 @@
-const withPWA = require('next-pwa')({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development',
-});
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
+  swcMinify: true,
   images: {
-    domains: ['www.quantumcybersolutions.com', 'quantumcybersolutions.com','www.Lucidsoftware.dev','Lucidsoftware.dev'],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "www.lucidsoftware.dev",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.quantumcybersolutions.com",
+        port: "",
+        pathname: "/**"
+      },
+    ],
   },
-}
+    pwa: {
+      dest: 'public', 
+      skipWaiting: true, 
+      clientsClaim: true, 
+    },
+};
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig;
