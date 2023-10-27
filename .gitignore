@@ -5,6 +5,14 @@
 /.pnp
 .pnp.js
 
+
+Games/
+
+Games/*
+
+Games
+
+
 # testing
 /coverage
 
