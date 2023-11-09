@@ -1,30 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import { Box, Heading, Flex, useColorMode, Button } from '@chakra-ui/react';
-import styles from '../../styles/snake.module.css';
-import { isMobile } from 'react-device-detect';
+import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+import { Box, Heading, Flex, useColorMode, Button } from "@chakra-ui/react";
+import styles from "../../styles/snake.module.css";
+import { isMobile } from "react-device-detect";
 
-const Snake = dynamic(() => import('snake-game-react'), { ssr: false });
-
+const Snake = dynamic(() => import("snake-game-react"), { ssr: false });
 
 const SnakeGameComponent = () => {
   const { colorMode } = useColorMode();
   const [score, setScore] = useState(0);
 
-  const textColor = colorMode === 'light' ? 'black' : 'white';
-  const snakeColor = colorMode === 'light' ? '#2D3748' : '#63B3ED';
-  const foodColor = colorMode === 'light' ? '#E53E3E' : '#F6E05E';
+  const textColor = colorMode === "light" ? "black" : "white";
+  const snakeColor = colorMode === "light" ? "#2D3748" : "#63B3ED";
+  const foodColor = colorMode === "light" ? "#E53E3E" : "#F6E05E";
 
   useEffect(() => {
     const updateScore = (newScore) => {
       setScore(newScore);
     };
-    window.addEventListener('snakeScore', (event) => {
+    window.addEventListener("snakeScore", (event) => {
       updateScore(event.detail);
     });
 
     return () => {
-      window.removeEventListener('snakeScore', updateScore);
+      window.removeEventListener("snakeScore", updateScore);
     };
   }, []);
 

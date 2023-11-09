@@ -1,15 +1,33 @@
-import { useEffect, useState, useCallback } from 'react';
-import { isMobile } from 'react-device-detect';
-import styles from '../../styles/Game.module.css';
-import { useRouter } from 'next/router';
-import { Box, VStack, Heading, Button, IconButton, HStack, useColorMode } from '@chakra-ui/react';
-import { ArrowUpIcon, ArrowLeftIcon, ArrowRightIcon, ArrowDownIcon } from '@chakra-ui/icons';
-import Head from 'next/head';
-import { games } from '../../data';
+import { useEffect, useState, useCallback } from "react";
+import { isMobile } from "react-device-detect";
+import styles from "../../styles/Game.module.css";
+import { useRouter } from "next/router";
+import {
+  Box,
+  VStack,
+  Heading,
+  Button,
+  IconButton,
+  HStack,
+  useColorMode,
+} from "@chakra-ui/react";
+import {
+  ArrowUpIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ArrowDownIcon,
+} from "@chakra-ui/icons";
+import Head from "next/head";
+import { games } from "../../data";
 
 const useArrowKeys = (callback) => {
   useEffect(() => {
-    const arrowKeys = new Set(["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]);
+    const arrowKeys = new Set([
+      "ArrowUp",
+      "ArrowDown",
+      "ArrowLeft",
+      "ArrowRight",
+    ]);
 
     const handleKeyPress = (event) => {
       if (arrowKeys.has(event.key)) {
@@ -84,7 +102,7 @@ export default function Game() {
         iframeElement.contentWindow.postMessage(eventObj, "*");
       }
     },
-    [iframeElement]
+    [iframeElement],
   );
 
   useArrowKeys(handleArrowKeyPress);
@@ -124,7 +142,11 @@ export default function Game() {
         minHeight="100vh"
         position="relative"
       >
-        <VStack spacing={4} alignItems="center" className={styles.gameContainer}>
+        <VStack
+          spacing={4}
+          alignItems="center"
+          className={styles.gameContainer}
+        >
           <Heading as="h2" size="xl">
             {game.title}
           </Heading>
@@ -155,20 +177,21 @@ export default function Game() {
             display={showInstructions ? "none" : "block"}
             zIndex={showInstructions ? -1 : 1}
           >
-            <div ref={iframeRef} dangerouslySetInnerHTML={{ __html: game.iframe }} />
+            <div
+              ref={iframeRef}
+              dangerouslySetInnerHTML={{ __html: game.iframe }}
+            />
           </Box>
           <HStack
             mt={4}
             spacing={4}
-            className={isMobile ? styles.controlsContainer : ''}
+            className={isMobile ? styles.controlsContainer : ""}
           >
             <IconButton
               aria-label="Move Up"
               icon={<ArrowUpIcon />}
-              onTouchStart={(event) =>
-                handleButtonTouchStart("ArrowUp", event)
-              }
-              className={isMobile ? styles.controlButton : ''}
+              onTouchStart={(event) => handleButtonTouchStart("ArrowUp", event)}
+              className={isMobile ? styles.controlButton : ""}
               style={{ touchAction: "none" }}
             />
             <IconButton
@@ -177,7 +200,7 @@ export default function Game() {
               onTouchStart={(event) =>
                 handleButtonTouchStart("ArrowLeft", event)
               }
-              className={isMobile ? styles.controlButton : ''}
+              className={isMobile ? styles.controlButton : ""}
               style={{ touchAction: "none" }}
             />
             <IconButton
@@ -186,7 +209,7 @@ export default function Game() {
               onTouchStart={(event) =>
                 handleButtonTouchStart("ArrowRight", event)
               }
-              className={isMobile ? styles.controlButton : ''}
+              className={isMobile ? styles.controlButton : ""}
               style={{ touchAction: "none" }}
             />
             <IconButton
@@ -195,13 +218,12 @@ export default function Game() {
               onTouchStart={(event) =>
                 handleButtonTouchStart("ArrowDown", event)
               }
-              className={isMobile ? styles.controlButton : ''}
+              className={isMobile ? styles.controlButton : ""}
               style={{ touchAction: "none" }}
             />
           </HStack>
-
         </VStack>
       </Box>
     </>
   );
-};
+}

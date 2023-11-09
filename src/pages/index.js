@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import Head from 'next/head';
+import React, { useState, useCallback } from "react";
+import Head from "next/head";
 import {
   Box,
   Grid,
@@ -18,10 +18,10 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-} from '@chakra-ui/react';
-import { ChevronDownIcon, InfoOutlineIcon } from '@chakra-ui/icons';
-import { games } from '../data';
-import AddToHomeScreenButton from './components/AddToHomeScreen';
+} from "@chakra-ui/react";
+import { ChevronDownIcon, InfoOutlineIcon } from "@chakra-ui/icons";
+import { games } from "../data";
+import AddToHomeScreenButton from "./components/AddToHomeScreen";
 
 const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
   const { colorMode } = useColorMode();
@@ -39,7 +39,7 @@ const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
       borderRadius="lg"
       p={4}
       boxShadow="xl"
-      _hover={{ transform: 'scale(1.11)', transition: 'all 3.0s' }}
+      _hover={{ transform: "scale(1.11)", transition: "all 3.0s" }}
     >
       <Image
         src={game.thumbnail}
@@ -93,7 +93,6 @@ const GameCard = React.memo(({ game, setSelectedGame, setIsOpen }) => {
   );
 });
 
-
 export default function Home() {
   const { colorMode } = useColorMode();
   const [isOpen, setIsOpen] = useState(false);
@@ -103,10 +102,9 @@ export default function Home() {
     setSelectedGame(null);
   };
 
-
   const scrollToGames = () => {
-    const gamesSection = document.getElementById('gamesSection');
-    gamesSection.scrollIntoView({ behavior: 'smooth' });
+    const gamesSection = document.getElementById("gamesSection");
+    gamesSection.scrollIntoView({ behavior: "smooth" });
   };
   return (
     <>
@@ -116,7 +114,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-  
+
       <Box minHeight="100vh" pos="relative">
         <Box
           as="div"
@@ -148,7 +146,7 @@ export default function Home() {
             >
               Games Showcase
             </Heading>
-           
+
             <Text
               color="purple.500"
               fontFamily="'Press Start 1P', monospace"
@@ -156,13 +154,13 @@ export default function Home() {
               size="1xl"
             >
               Not all games are available on mobile 📲
-              </Text>
-              <Text
+            </Text>
+            <Text
               color="purple.500"
               fontFamily="'Press Start 1P', monospace"
               letterSpacing="0.1em"
               size="1xl"
-              >
+            >
               (Black Jack in development ...)
             </Text>
             <AddToHomeScreenButton />
@@ -171,15 +169,15 @@ export default function Home() {
               icon={<ChevronDownIcon boxSize={8} />}
               colorScheme="whiteAlpha"
               onClick={scrollToGames}
-              backgroundColor='#805AD5'
+              backgroundColor="#805AD5"
             />
           </VStack>
         </Flex>
         <Box id="gamesSection" p={6}>
           <Grid
             templateColumns={[
-              'repeat(auto-fill, minmax(250px, 1fr))',
-              'repeat(auto-fill, minmax(300px, 1fr))',
+              "repeat(auto-fill, minmax(250px, 1fr))",
+              "repeat(auto-fill, minmax(300px, 1fr))",
             ]}
             gap={6}
             justifyContent="center"
@@ -196,7 +194,7 @@ export default function Home() {
           </Grid>
         </Box>
       </Box>
-  
+
       {/* Add the modal outside the map function */}
       {selectedGame && (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -212,7 +210,4 @@ export default function Home() {
       )}
     </>
   );
-
-};
-
-      
+}

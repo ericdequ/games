@@ -1,30 +1,29 @@
 .controlButton {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-    border-radius: 50%;
-  }
-  
-  .controlsContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .backgroundImage {
-    background-image: url('../../public/snake/Snake/2/2.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    opacity: 0.2;
-  }
-  
-  .scoreBoard {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-  
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+
+.controlsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.backgroundImage {
+  background-image: url("../../public/snake/Snake/2/2.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.2;
+}
+
+.scoreBoard {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}

@@ -11,7 +11,6 @@ Feel free to fork repo and add your own games to the showcase!
 5. 🐍 **Snake**
 6. 🃏 **LLL**
 
-
 ## 🚀 Getting Started
 
 To get started, follow these steps:
@@ -27,7 +26,7 @@ To get started, follow these steps:
    ```bash
    cd games
    npm install --legacy-peer-deps
-    ```
+   ```
 
 3. Run the development server:
 
@@ -51,7 +50,7 @@ To deploy this app on Vercel, follow these steps:
 
    ```bash
    npm i -g vercel
-    ```
+   ```
 
 2. Login to your Vercel account:
 
@@ -69,7 +68,7 @@ To deploy this app on Vercel, follow these steps:
 
    ```bash
     vercel
-    ```
+   ```
 
 5. Deploy the app to production:
 
@@ -80,21 +79,27 @@ To deploy this app on Vercel, follow these steps:
 ## 🎮 Game Previews
 
 ### Game 1: Pong 🏓
+
 The classic arcade game that started it all. Challenge yourself or play with a friend in this timeless masterpiece.
 
 ### Game 2: Geometry Survival 🔺
+
 Dodge an endless onslaught of geometric shapes and obstacles in this fast-paced, addictive game.
 
 ### Game 3: Meme Survival 😂
+
 Battle your way through the meme world, avoiding obstacles and collecting power-ups to survive.
 
 ### Game 4: Meowio 🐱
+
 A knockoff of Mario but with Scratch Cat. Try to get to the end of the level and beat the boss!
 
 ### Game 5: Snake 🐍
+
 The beloved classic Snake game, reimagined for modern browsers. Guide the snake to eat food and grow, but avoid hitting the walls or yourself!
 
 ### Game 6: LLL 🃏
+
 you have 3 Chances to guess the card after each guess youll be prompted for higher or lower. If you guess correctly you win!
 
 ```mermaid
@@ -104,9 +109,9 @@ A --> C[Game 2: Geometry Survival ] --> G
 A --> D[Game 3: Meme Survival ] --> G
 A --> E[Game 4: Meowio ] --> G
 A --> F[Game 5: Snake ] --> H[React]
-A --> I[Game 6: LLL] 
+A --> I[Game 6: LLL]
 ```
 
-
 ## 📝 License
+
 This project is licensed under the MIT License

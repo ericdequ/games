@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useInstallPrompt = () => {
   const [installPromptEvent, setInstallPromptEvent] = useState(null);
@@ -8,11 +8,14 @@ const useInstallPrompt = () => {
       e.preventDefault();
       setInstallPromptEvent(e);
     };
-    
-    window.addEventListener('beforeinstallprompt', beforeInstallPromptHandler);
+
+    window.addEventListener("beforeinstallprompt", beforeInstallPromptHandler);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', beforeInstallPromptHandler);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        beforeInstallPromptHandler,
+      );
     };
   }, []);
 
@@ -20,7 +23,7 @@ const useInstallPrompt = () => {
     if (installPromptEvent) {
       installPromptEvent.prompt();
       installPromptEvent.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
+        if (choiceResult.outcome === "accepted") {
           setInstallPromptEvent(null);
         }
       });
@@ -29,6 +32,5 @@ const useInstallPrompt = () => {
 
   return [installPromptEvent, handleInstall];
 };
-
 
 export default useInstallPrompt;

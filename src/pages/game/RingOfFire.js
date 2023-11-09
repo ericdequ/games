@@ -39,7 +39,6 @@ const theme = extendTheme({
   breakpoints,
 });
 
-
 const textStyle = css`
   font-size: 2rem;
   color: white;
@@ -114,7 +113,6 @@ function speakRule(text) {
 }
 
 function RingOfFire() {
-
   const [deck, setDeck] = useState([]);
   const [currentCard, setCurrentCard] = useState(null);
   const [flipped, setFlipped] = useState(false);

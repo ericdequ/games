@@ -14,5 +14,4 @@ const useAudio = (src) => {
   }, [src]);
 };
 
-
 export default useAudio;

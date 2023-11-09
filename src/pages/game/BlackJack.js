@@ -3,13 +3,13 @@ import { Box } from "@chakra-ui/react";
 import BlackJackComp from "../components/BlackJackComp";
 
 const BlackJack = () => {
-    return (
-        <>
-            <Box minH="100vh">
-                <BlackJackComp />
-            </Box>
-        </>
-    );
+  return (
+    <>
+      <Box minH="100vh">
+        <BlackJackComp />
+      </Box>
+    </>
+  );
 };
 
 export default BlackJack;

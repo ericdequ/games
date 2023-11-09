@@ -50,7 +50,7 @@ const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
 const MotionBox = motion(Box);
 
 const createDeck = () => {
-  const deck = suits.flatMap(suit => ranks.map(rank => ({ suit, rank })));
+  const deck = suits.flatMap((suit) => ranks.map((rank) => ({ suit, rank })));
   return shuffleDeck(deck);
 };
 
@@ -73,9 +73,6 @@ const shuffleDeck = (deck) => {
   deck = sattoloShuffle(deck);
   return deck;
 };
-
-
-
 
 const LLL = () => {
   const [deck, setDeck] = useState(createDeck());
@@ -103,10 +100,11 @@ const LLL = () => {
     }
   };
 
-
   useEffect(() => {
     setDisabledRanks([]); // Reset disabled ranks when a new card is drawn
-    {/*setBestGuess(BestCardAlgo(validCards, disabledRanks, state.chances,ranks,chances ));*/ }
+    {
+      /*setBestGuess(BestCardAlgo(validCards, disabledRanks, state.chances,ranks,chances ));*/
+    }
   }, [state.currentCard]);
 
   const addToUsedDeck = () => {
@@ -115,16 +113,20 @@ const LLL = () => {
   };
 
   const getvalidcards = () => {
-    const validCards = deck.filter(card => !disabledRanks.includes(card.rank));
+    const validCards = deck.filter(
+      (card) => !disabledRanks.includes(card.rank),
+    );
     setValidCards(validCards);
   };
 
   useEffect(() => {
     getvalidcards();
-    {/*setBestGuess(BestCardAlgo(validCards, disabledRanks, state.chances,ranks));*/ }
+    {
+      /*setBestGuess(BestCardAlgo(validCards, disabledRanks, state.chances,ranks));*/
+    }
   }, [disabledRanks]);
 
-  const restart = won => {
+  const restart = (won) => {
     addToUsedDeck();
     // remove from main deck
     const newDeck = deck.slice(1);
@@ -146,33 +148,39 @@ const LLL = () => {
   const guess = (guess) => {
     const { currentCard, chances } = state;
     const newChances = chances - 1;
-  
+
     const guessedIndex = ranks.indexOf(guess);
     const currentCardIndex = ranks.indexOf(currentCard.rank);
-  
+
     // Calculate remaining valid ranks
-    const validRanks = ranks.filter(rank => !disabledRanks.includes(rank) && rank !== currentCard.rank);
-  
-    setState(prevState => {
+    const validRanks = ranks.filter(
+      (rank) => !disabledRanks.includes(rank) && rank !== currentCard.rank,
+    );
+
+    setState((prevState) => {
       const newResult = guessedIndex < currentCardIndex ? "Higher" : "Lower";
-  
+
       // Only call speakRule if there are still guesses left and the user hasn't won or lost
       if (newChances > 0 && guess !== currentCard.rank) {
         speakRule(newResult);
       }
-  
+
       // Update the disabledRanks array
-      const disabledRange = newResult === "Higher"
-        ? ranks.slice(0, guessedIndex + 1)
-        : ranks.slice(guessedIndex);
-      const newDisabledRanks = [...disabledRanks, ...disabledRange].filter((value, index, self) => self.indexOf(value) === index);
-  
+      const disabledRange =
+        newResult === "Higher"
+          ? ranks.slice(0, guessedIndex + 1)
+          : ranks.slice(guessedIndex);
+      const newDisabledRanks = [...disabledRanks, ...disabledRange].filter(
+        (value, index, self) => self.indexOf(value) === index,
+      );
+
       setDisabledRanks(newDisabledRanks);
       if (guess === currentCard.rank && newChances >= 0) {
         setTimeout(() => restart(true), 2000);
         speakRule("win"); // Play the winning sound
         return {
-          ...prevState, result: `Correct`,
+          ...prevState,
+          result: `Correct`,
           showCurrentCard: true,
         };
       } else if (newChances === 0) {
@@ -186,13 +194,14 @@ const LLL = () => {
         return {
           ...prevState,
           chances: newChances,
-          result: `${newResult}`
-        }
+          result: `${newResult}`,
+        };
       }
     });
   };
 
-  const { currentCard, chances, result, cardsWon, cardsLost, showCurrentCard } = state;
+  const { currentCard, chances, result, cardsWon, cardsLost, showCurrentCard } =
+    state;
   return (
     <Container centerContent bg={bg} minH="100vh" p={5}>
       <Button
@@ -216,7 +225,12 @@ const LLL = () => {
       >
         <HamburgerIcon />
       </Button>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
         <DrawerOverlay>
           <DrawerContent bg="gray.800" color="white">
             <DrawerCloseButton />
@@ -240,17 +254,26 @@ const LLL = () => {
                         Current Odds 🎰
                       </Text>
                       {ranks.map((rank, index) => {
-                        const rankCount = deck.filter((card) => card.rank === rank).length;
+                        const rankCount = deck.filter(
+                          (card) => card.rank === rank,
+                        ).length;
                         let percent = 0;
                         if (disabledRanks.includes(rank)) {
                           percent = 0;
                         } else {
-                          percent = ((rankCount / validCards.length) * 100).toFixed(2);
+                          percent = (
+                            (rankCount / validCards.length) *
+                            100
+                          ).toFixed(2);
                         }
 
                         if (percent != 0)
                           return (
-                            <HStack key={index} justifyContent="space-between" w="100%">
+                            <HStack
+                              key={index}
+                              justifyContent="space-between"
+                              w="100%"
+                            >
                               <Text fontSize="xl" mr="4">
                                 {rank}:
                               </Text>
@@ -268,10 +291,16 @@ const LLL = () => {
                         Used Cards ({Useddeck.length}) 🃏
                       </Text>
                       {ranks.map((rank, index) => {
-                        const rankCount = Useddeck.filter((card) => card.rank === rank).length;
+                        const rankCount = Useddeck.filter(
+                          (card) => card.rank === rank,
+                        ).length;
                         if (rankCount != 0)
                           return (
-                            <HStack key={index} justifyContent="space-between" w="100%">
+                            <HStack
+                              key={index}
+                              justifyContent="space-between"
+                              w="100%"
+                            >
                               <Text fontSize="xl" mr="4">
                                 {rank}:
                               </Text>
@@ -285,15 +314,26 @@ const LLL = () => {
                   </TabPanel>
                   <TabPanel>
                     <VStack spacing={4}>
-                      <Text fontSize="2xl" fontWeight="bold">Remaining Cards 🃏</Text>
+                      <Text fontSize="2xl" fontWeight="bold">
+                        Remaining Cards 🃏
+                      </Text>
                       {ranks.map((rank, index) => {
-                        const rankCount = deck.filter((card) => card.rank === rank).length;
-                        const percent = ((rankCount / validCards.length) * 100).toFixed(2);
+                        const rankCount = deck.filter(
+                          (card) => card.rank === rank,
+                        ).length;
+                        const percent = (
+                          (rankCount / validCards.length) *
+                          100
+                        ).toFixed(2);
                         if (rank)
                           if (rankCount != 0)
                             if (index != 0)
                               return (
-                                <HStack key={index} justifyContent="space-between" w="100%">
+                                <HStack
+                                  key={index}
+                                  justifyContent="space-between"
+                                  w="100%"
+                                >
                                   <Text fontSize="xl" mr="4">
                                     {rank}:
                                   </Text>
@@ -312,51 +352,49 @@ const LLL = () => {
                         Odds Before guesses 🎲
                       </Text>
                       {ranks.map((rank, index) => {
-                        const rankCount = deck.filter((card) => card.rank === rank).length;
-                        const percent = ((rankCount / validCards.length) * 100).toFixed(2);
+                        const rankCount = deck.filter(
+                          (card) => card.rank === rank,
+                        ).length;
+                        const percent = (
+                          (rankCount / validCards.length) *
+                          100
+                        ).toFixed(2);
                         if (rank)
                           if (rankCount != 0)
                             return (
-                              <HStack key={index} justifyContent="space-between" w="100%">
-                                <Text fontSize="xl" mr="4">{rank}:</Text>
-                                <Box bg="teal.500" borderRadius="lg" px="2">({percent}%)</Box>
+                              <HStack
+                                key={index}
+                                justifyContent="space-between"
+                                w="100%"
+                              >
+                                <Text fontSize="xl" mr="4">
+                                  {rank}:
+                                </Text>
+                                <Box bg="teal.500" borderRadius="lg" px="2">
+                                  ({percent}%)
+                                </Box>
                               </HStack>
                             );
                       })}
                     </VStack>
                   </TabPanel>
 
-
-
-
                   <TabPanel>
                     <VStack spacing={4}>
                       <Text fontSize="2xl" fontWeight="bold">
                         Best Guess 🎲
                       </Text>
-                      <Text fontSize="2xl" fontWeight="bold" color="green.500">{bestGuess}</Text>
+                      <Text fontSize="2xl" fontWeight="bold" color="green.500">
+                        {bestGuess}
+                      </Text>
                     </VStack>
                   </TabPanel>
-
-
-
                 </TabPanels>
               </Tabs>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
-
-
-
-
-
-
-
-
-
-
-
 
       <VStack spacing={6} pt={10}>
         <Heading
@@ -382,7 +420,9 @@ const LLL = () => {
               p={6}
               boxShadow="2xl"
             >
-              <Text fontSize="2xl" fontWeight="semibold">Current Card:</Text>
+              <Text fontSize="2xl" fontWeight="semibold">
+                Current Card:
+              </Text>
               <Text fontSize="6xl" fontWeight="extrabold" color={getColor()}>
                 {currentCard.rank} of {currentCard.suit}
               </Text>
@@ -406,11 +446,15 @@ const LLL = () => {
         )}
 
         <Stack isInline>
-          <Text fontSize="2xl" fontWeight="semibold">Cards Won:</Text>
+          <Text fontSize="2xl" fontWeight="semibold">
+            Cards Won:
+          </Text>
           <Text fontSize="2xl" fontWeight="bold" color="green.500">
             {cardsWon}
           </Text>
-          <Text fontSize="2xl" fontWeight="semibold">Cards Lost:</Text>
+          <Text fontSize="2xl" fontWeight="semibold">
+            Cards Lost:
+          </Text>
           <Text fontSize="2xl" fontWeight="bold" color="red.500">
             {cardsLost}
           </Text>
@@ -436,12 +480,8 @@ const LLL = () => {
           ))}
         </SimpleGrid>
       </VStack>
-      
     </Container>
-    
   );
 };
 
 export default LLL;
-
-

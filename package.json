@@ -12,15 +12,15 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/react": "^2.8.1",
+    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/pacifico": "^4.5.9",
     "@fontsource/press-start-2p": "^4.5.11",
     "@fontsource/roboto-mono": "^4.5.10",
-    "@mui/icons-material": "^5.14.14",
-    "@mui/material": "^5.14.14",
-    "@mui/utils": "^5.14.14",
+    "@mui/icons-material": "^5.14.16",
+    "@mui/material": "^5.14.17",
+    "@mui/utils": "^5.14.17",
     "framer-motion": "^10.16.4",
     "next": "13.3.0",
     "next-pwa": "^5.6.0",
@@ -33,7 +33,7 @@
     "react-modal": "^3.16.1",
     "react-reveal": "^1.2.2",
     "snake-game-react": "^1.0.6",
-    "tailwindcss": "^3.3.3",
+    "tailwindcss": "^3.3.5",
     "vercel": "^28.20.0"
   }
 }

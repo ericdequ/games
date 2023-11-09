@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback } from "react";
 
 export const useCoolScroll = () => {
   const scrollAnimationFrame = useRef(null);
@@ -14,8 +14,17 @@ export const useCoolScroll = () => {
       const ts = (t /= 1) * t;
       const tc = ts * t;
       return t < 0.5
-        ? (2 / 2.75 * (7.5625 * tc * ts + overshoot) * t * Math.sin((t - 0.5 / 1.5) * (2 * Math.PI) * 1.5 / 0.3)) / 2
-        : 2 / 2.75 * (7.5625 * tc * ts + overshoot) * (t -= 2 / 2.75) * Math.sin((t - 0.5 / 1.5) * (2 * Math.PI) * 1.5 / 0.3) / 2 + 1;
+        ? ((2 / 2.75) *
+            (7.5625 * tc * ts + overshoot) *
+            t *
+            Math.sin(((t - 0.5 / 1.5) * (2 * Math.PI) * 1.5) / 0.3)) /
+            2
+        : ((2 / 2.75) *
+            (7.5625 * tc * ts + overshoot) *
+            (t -= 2 / 2.75) *
+            Math.sin(((t - 0.5 / 1.5) * (2 * Math.PI) * 1.5) / 0.3)) /
+            2 +
+            1;
     };
 
     const scrollStep = (currentTime) => {

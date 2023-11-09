@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
-import  useInstallPrompt from '../../hooks/useInstallPrompt';
+import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
+import useInstallPrompt from "../../hooks/useInstallPrompt";
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    backgroundColor: '#3c3f41',
-    borderRadius: '10px',
-    padding: '30px',
-    textAlign: 'center',
-    border: '4px solid #805AD5',
-    color: 'white',
-    fontSize: '22px',
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#3c3f41",
+    borderRadius: "10px",
+    padding: "30px",
+    textAlign: "center",
+    border: "4px solid #805AD5",
+    color: "white",
+    fontSize: "22px",
   },
   button: {
-    backgroundColor: '#805AD5',
-    border: 'none',
-    borderRadius: '5px',
-    color: 'white',
-    cursor: 'pointer',
-    fontSize: '16px',
-    padding: '10px 20px',
-    margin: '20px 0',
+    backgroundColor: "#805AD5",
+    border: "none",
+    borderRadius: "5px",
+    color: "white",
+    cursor: "pointer",
+    fontSize: "16px",
+    padding: "10px 20px",
+    margin: "20px 0",
   },
   heading: {
-    color: 'white',
-    fontSize: '28px',
-    fontWeight: 'bold',
-    marginBottom: '20px',
+    color: "white",
+    fontSize: "28px",
+    fontWeight: "bold",
+    marginBottom: "20px",
   },
   list: {
-    color: 'white',
-    fontSize: '18px',
+    color: "white",
+    fontSize: "18px",
   },
 };
 
@@ -43,8 +43,8 @@ const AddToHomeScreenButton = () => {
   const [isIOS, setIsIOS] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState('');
-  const [buttonText, setButtonText] = useState('Add to Desktop');
+  const [modalContent, setModalContent] = useState("");
+  const [buttonText, setButtonText] = useState("Add to Desktop");
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
@@ -53,7 +53,7 @@ const AddToHomeScreenButton = () => {
 
     setIsIOS(iOS);
     setIsAndroid(Android);
-    setButtonText(iOS || Android ? 'Add to Home Screen' : 'Add to Desktop');
+    setButtonText(iOS || Android ? "Add to Home Screen" : "Add to Desktop");
   }, []);
 
   const handleButtonClick = () => {
@@ -101,7 +101,7 @@ const AddToHomeScreenButton = () => {
 
   return (
     <>
-       <button onClick={handleButtonClick} style={customStyles.button}>
+      <button onClick={handleButtonClick} style={customStyles.button}>
         {buttonText}
       </button>
       <Modal
@@ -114,7 +114,7 @@ const AddToHomeScreenButton = () => {
         <button onClick={closeModal} style={customStyles.button}>
           Close
         </button>
-        </Modal>
+      </Modal>
     </>
   );
 };

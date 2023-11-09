@@ -1,31 +1,31 @@
 {
-    "name": "Rics Arcade",
-    "short_name": "Arcade",
-    "description": "A collection of games",
-    "start_url": "https://games-gold-nu.vercel.app/",
-    "display": "standalone",
-    "background_color": "#1C2833", 
-    "theme_color": "#1C2833",
-    "icons":[
-      {
-        "src": "/logosmall.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "/logomed.png",
-        "sizes": "512x512",
-        "type": "image/png"
-      },
-      {
-        "src": "/logo.png",
-        "sizes": "1024x1024",
-        "type": "image/png"
-      }
-      ,{
-        "src": "/logobig.png",
-        "sizes": "2048x2048",
-        "type": "image/png"
-      }
-    ]
+  "name": "Rics Arcade",
+  "short_name": "Arcade",
+  "description": "A collection of games",
+  "start_url": "https://games-gold-nu.vercel.app/",
+  "display": "standalone",
+  "background_color": "#1C2833",
+  "theme_color": "#1C2833",
+  "icons": [
+    {
+      "src": "/logosmall.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logomed.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/logobig.png",
+      "sizes": "2048x2048",
+      "type": "image/png"
+    }
+  ]
 }

@@ -14,15 +14,15 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.quantumcybersolutions.com",
         port: "",
-        pathname: "/**"
+        pathname: "/**",
       },
     ],
   },
-    pwa: {
-      dest: 'public', 
-      skipWaiting: true, 
-      clientsClaim: true, 
-    },
+  pwa: {
+    dest: "public",
+    skipWaiting: true,
+    clientsClaim: true,
+  },
 };
 
 module.exports = nextConfig;

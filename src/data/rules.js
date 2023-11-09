@@ -139,23 +139,26 @@ const rules = {
     9: "Animal Sounds – The person who picks the card chooses an animal. Everyone must make the sound of that animal. The person with the worst animal sound takes a drink. 🦁",
     10: "Talent Show – Everyone performs a quick talent. The person with the worst talent takes a drink. 🎭",
     Jack: "Copycat – The person who picks the card chooses someone to copy for a full round. If the person being copied catches the copycat not mimicking them, the copycat takes a drink. 🐱",
-    Queen: "Wink Master – The person who picks the card becomes the Wink Master. If they wink at someone, that person must take a drink. The Wink Master's reign lasts until another Queen is drawn. 😉",
+    Queen:
+      "Wink Master – The person who picks the card becomes the Wink Master. If they wink at someone, that person must take a drink. The Wink Master's reign lasts until another Queen is drawn. 😉",
     King: "Kingslayer – The person who picks the card chooses someone else to finish their drink. The person who draws the last King must finish their own drink. 🤴",
-},
+  },
   modified: {
     Ace: "Switcharoo – Everyone swaps seats with the person to their left. The last person to sit down takes a drink. 🔄",
-2: "Double Trouble – The person who picks the card has to take two drinks. 🥃🥃",
-3: "Me – Time for you to take a sip, champ. 🍻",
-4: "Floor – Everyone touches the floor with their hand. The last person to do so takes a drink. 🖐️",
-5: "Jive – Do a dance move and the next person must copy it and add another move. Keep going around the circle until someone messes up and has to drink. 🕺",
-6: "Cheers – Everyone raises their glasses and takes a drink together. 🥂",
-7: "Heaven – Point your finger to the sky and watch as your friends try to keep up. The last person to do so takes a drink. ☝️",
-8: "Buddy – Choose someone to be your hydration buddy. Whenever you drink water, they drink too! 💧👯‍♂️",
-9: "Rhyme – Pick a word, like 'fog,' and let the rhyming begin. Keep going around the circle until someone stumbles and has to drink. 🎶",
-10: "Categories – Choose a category, like 'football,' and let the words flow. Keep going until someone fumbles and takes a drink. 🏈",
-Jack: "Make a Rule – Make up a rule that everyone has to follow, like 'you can only drink with your left hand.' If anyone breaks the rule, they have to take a drink. 😜",
-Queen: "Trivia – Ask a trivia question. The first person to answer correctly gets to choose someone to take a drink. 🧠",
-King: "Pour! – Pour a little bit of your drink into the cup in the middle of the table. Whoever picks up the LAST king has to drink the entire concoction, which could be a mix of different drinks. 🤢",
-}};
+    2: "Double Trouble – The person who picks the card has to take two drinks. 🥃🥃",
+    3: "Me – Time for you to take a sip, champ. 🍻",
+    4: "Floor – Everyone touches the floor with their hand. The last person to do so takes a drink. 🖐️",
+    5: "Jive – Do a dance move and the next person must copy it and add another move. Keep going around the circle until someone messes up and has to drink. 🕺",
+    6: "Cheers – Everyone raises their glasses and takes a drink together. 🥂",
+    7: "Heaven – Point your finger to the sky and watch as your friends try to keep up. The last person to do so takes a drink. ☝️",
+    8: "Buddy – Choose someone to be your hydration buddy. Whenever you drink water, they drink too! 💧👯‍♂️",
+    9: "Rhyme – Pick a word, like 'fog,' and let the rhyming begin. Keep going around the circle until someone stumbles and has to drink. 🎶",
+    10: "Categories – Choose a category, like 'football,' and let the words flow. Keep going until someone fumbles and takes a drink. 🏈",
+    Jack: "Make a Rule – Make up a rule that everyone has to follow, like 'you can only drink with your left hand.' If anyone breaks the rule, they have to take a drink. 😜",
+    Queen:
+      "Trivia – Ask a trivia question. The first person to answer correctly gets to choose someone to take a drink. 🧠",
+    King: "Pour! – Pour a little bit of your drink into the cup in the middle of the table. Whoever picks up the LAST king has to drink the entire concoction, which could be a mix of different drinks. 🤢",
+  },
+};
 
 export default rules;
