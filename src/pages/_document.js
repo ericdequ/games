@@ -15,7 +15,7 @@ export default function Document() {
         ></meta>
         <link
           rel="apple-touch-icon"
-          href="https://games-gold-nu.vercel.app/logosmall.png"
+          href="https://games-gold-nu.vercel.app/logosmall.webp"
         />
 
         <script
@@ -25,7 +25,7 @@ export default function Document() {
               "@context": "https://schema.org",
               "@type": "Organization",
               url: "https://games-gold-nu.vercel.app/",
-              logo: "https://games-gold-nu.vercel.app/logo.png",
+              logo: "https://games-gold-nu.vercel.app/logo.webp",
             }),
           }}
         />

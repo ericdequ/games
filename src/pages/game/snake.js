@@ -13,7 +13,7 @@ export default function Snake() {
   const { colorMode } = useColorMode();
 
   const snakeBackgroundStyle = {
-    backgroundImage: `url(${"../../public/snake/Snake/2/2.jpg"})`,
+    backgroundImage: `url(${"../../public/snake/Snake/2/2.webp"})`,
   };
 
   return (

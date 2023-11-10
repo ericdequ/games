@@ -70,7 +70,7 @@ function MainMenu({ onStartGame }) {
       <Box
         textAlign="center"
         minHeight="100vh"
-        bgImage="url('../../../public/ROF/ROF2.jpg')"
+        bgImage="url('../../../public/ROF/ROF2.webp')"
         bgSize="cover"
         bgPosition="center"
         bgRepeat="no-repeat"

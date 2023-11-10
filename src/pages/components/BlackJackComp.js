@@ -363,7 +363,7 @@ const BlackJackComp = () => {
               >
                 {index === 0 && !gameOver ? (
                   <Image
-                    src="/blackjack/cardback.jpg"
+                    src="/blackjack/cardback.webp"
                     alt="Card back"
                     width="100"
                     height="100"
@@ -397,7 +397,7 @@ const BlackJackComp = () => {
               >
                 {!betPlaced ? (
                   <Image
-                    src="/blackjack/cardback.jpg"
+                    src="/blackjack/cardback.webp"
                     alt="Card back"
                     width="100"
                     height="100"

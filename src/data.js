@@ -69,6 +69,6 @@ export const games = [
     id: 'Roulette',
     title: "Roulette",
     url: "/game/Roulette",
-    thumbnail: '/thumbnails/Roulette.jpg',
+    thumbnail: '/thumbnails/Roulette.webp',
   },*/
 ];

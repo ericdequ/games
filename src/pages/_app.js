@@ -27,7 +27,7 @@ const theme = extendTheme({
     global: {
       "html, body": {
         background:
-          "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/background/background.jpg')",
+          "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/background/background.webp')",
         backgroundSize: "cover",
         backgroundAttachment: "fixed",
       },
