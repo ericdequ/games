@@ -13,6 +13,8 @@ export default function Document() {
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         ></meta>
+        <link rel="preconnect" href="https://www.quantumcybersolutions.com/" />
+        <link rel="dns-prefetch" href="https://www.quantumcybersolutions.com/" />
         <link
           rel="apple-touch-icon"
           href="https://games-gold-nu.vercel.app/logosmall.webp"
