@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import WinLoseModal from "@/components/WinLoseModal";
 import {
   Drawer,
   DrawerOverlay,
@@ -30,20 +31,6 @@ import {
   Fade,
   Slide,
 } from "@chakra-ui/react";
-
-const speakRule = (text) => {
-  const synth = window.speechSynthesis;
-  synth.cancel(); // Cancel any ongoing speech
-
-  if (text === "win") {
-    console.log("win");
-  } else if (text === "lose") {
-    console.log("lose");
-  } else {
-    const utterance = new SpeechSynthesisUtterance(text);
-    synth.speak(utterance);
-  }
-};
 
 const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
 const ranks = [2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King", "Ace"];
@@ -80,6 +67,14 @@ const LLL = () => {
   const [disabledRanks, setDisabledRanks] = useState([]);
   const [validCards, setValidCards] = useState([]);
   const [bestGuess, setBestGuess] = useState("");
+  const [videoUrl, setVideoUrl] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const higherAudioRef = useRef(null);
+  const lowerAudioRef = useRef(null);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const [state, setState] = useState({
     currentCard: deck[0],
     chances: 3,
@@ -89,14 +84,54 @@ const LLL = () => {
     showCurrentCard: false,
     BestRank: "",
   });
+
+  
+  const speakRule = (text) => {
+    const synth = window.speechSynthesis;
+    synth.cancel(); // Cancel any ongoing speech
+
+    const handleModalDisplay = () => {
+      openModal();
+      setTimeout(() => {
+        closeModal();
+      }, 3000); // Wait for 3 seconds before closing the modal
+    };
+  
+
+    console.log("the text is", text);
+    if (text === "win") {
+      console.log("win");
+      setVideoUrl('https://games-gold-nu.vercel.app/Lenny/Win.mp4'); // Set URL for win video
+      handleModalDisplay();
+    } else if (text === "lose") {
+      console.log("lose");
+      setVideoUrl('https://games-gold-nu.vercel.app/Lenny/Lose.mp4'); // Set URL for lose video
+      handleModalDisplay();
+    }else if (text === "Higher") {
+      console.log("Higher");
+      higherAudioRef.current.play();
+      
+    }
+    else if (text === "Lower") {
+      console.log("lower");
+      lowerAudioRef.current.play();
+      
+    }
+    else{
+      console.log("Other");
+
+    }
+  };
+
+
   const router = useRouter();
-  const bg = useColorModeValue("gray.200", "gray.700");
+  const bg = useColorModeValue("gray.300", "gray.600");
 
   const getColor = () => {
     if (state.result.includes("Correct")) {
-      return "green.500";
+      return "green.600";
     } else {
-      return "red.500";
+      return "red.600";
     }
   };
 
@@ -203,6 +238,7 @@ const LLL = () => {
   const { currentCard, chances, result, cardsWon, cardsLost, showCurrentCard } =
     state;
   return (
+    <>
     <Container centerContent bg={bg} minH="100vh" p={5}>
       <Button
         colorScheme="teal"
@@ -367,10 +403,10 @@ const LLL = () => {
                                 justifyContent="space-between"
                                 w="100%"
                               >
-                                <Text fontSize="xl" mr="4">
+                                <Text fontSize="lg" mr="3">
                                   {rank}:
                                 </Text>
-                                <Box bg="teal.500" borderRadius="lg" px="2">
+                                <Box bg="teal.600" borderRadius="lg" px="3">
                                   ({percent}%)
                                 </Box>
                               </HStack>
@@ -384,7 +420,7 @@ const LLL = () => {
                       <Text fontSize="2xl" fontWeight="bold">
                         Best Guess 🎲
                       </Text>
-                      <Text fontSize="2xl" fontWeight="bold" color="green.500">
+                      <Text fontSize="2xl" fontWeight="bold" color="green.600">
                         {bestGuess}
                       </Text>
                     </VStack>
@@ -396,11 +432,11 @@ const LLL = () => {
         </DrawerOverlay>
       </Drawer>
 
-      <VStack spacing={6} pt={10}>
+      <VStack spacing={6} pt={9}>
         <Heading
           fontSize="5xl"
           fontWeight="bold"
-          color="teal.500"
+          color="teal.600"
           as={Fade}
           in={true}
         >
@@ -481,6 +517,12 @@ const LLL = () => {
         </SimpleGrid>
       </VStack>
     </Container>
+
+    {/* Win Lose Modal and higher and lower audio refs */ }
+    <WinLoseModal videoUrl={videoUrl} isOpen={isModalOpen} closeModal={closeModal} />
+    <audio ref={higherAudioRef} src="https://games-gold-nu.vercel.app/Lenny/Higher.mp3" preload="auto"></audio>
+    <audio ref={lowerAudioRef} src="https://games-gold-nu.vercel.app/Lenny/Lower.mp3" preload="auto"></audio>
+    </>
   );
 };
 
